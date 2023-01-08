@@ -1,0 +1,296 @@
+/* ナビゲーション */
+
+.each-tab{
+
+  border-right: 1px solid rgba(0, 0, 0, .1);
+}
+/* 横スクロールの設定 */
+.custom-nav {
+  overflow-x:scroll;
+  overflow-y:hidden;
+  flex-wrap: nowrap;
+  -ms-overflow-style: none; /* スクロールバー非表示　MS browser */
+  scrollbar-width: none; /* スクロールバー非表示　Firefox browser  */
+}
+
+
+/* chrom safari スクロールバー非表示 */
+.custom-nav::-webkit-scrollbar {
+    display:none;
+  }
+
+
+h1.title {
+  font-size:30px;
+  margin:0px 20px;
+}
+
+.title a:link, .title a:visited, .title a:hover, .title a:active {
+  color: #1B1464;
+}
+
+h2.subtitle {
+  font-size:16px;
+  margin:0px 20px;
+  color:#ccf;
+}
+
+ /* home 見出し */
+p.category {
+  padding-left: 0px;
+  border-bottom: solid 2px #718093;
+
+}
+
+p#weather span {
+  color: white;
+  display: inline-block;
+  background-color: #00a8ff;
+  padding: 5px;
+}
+
+p#business span {
+  color: white;
+  display: inline-block;
+  background-color: #9c88ff;
+  padding: 5px;
+}
+
+p#entertainment span {
+  color: white;
+  display: inline-block;
+  background-color: #fbc531;
+  padding: 5px;
+}
+
+p#general span {
+  color: white;
+  display: inline-block;
+  background-color: #4cd137;
+  padding: 5px;
+}
+
+p#health span {
+  color: white;
+  display: inline-block;
+  background-color: #487eb0;
+  padding: 5px;
+}
+
+p#science span {
+  color: white;
+  display: inline-block;
+  background-color: #e84118;
+  padding: 5px;
+}
+
+p#sports span {
+  color: white;
+  display: inline-block;
+  background-color: #273c75;
+  padding: 5px;
+}
+
+p#technology span {
+  color: white;
+  display: inline-block;
+  background-color: #353b48;
+  padding: 5px;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+/* 天気予報関連 top page */
+
+img.nowWeather {
+  width: 150px;
+  height: 150px;
+}
+
+img.mainpageWeathericon {
+  width: 50px;
+  height: 50px;
+}
+
+/* 天気予報詳細 */
+img.weatherpageIcons {
+  width: 75px;
+  height: 75px;
+}
+
+/* 地域指定画像 */
+/* #map { */
+  /* display: none; */
+/* } */
+
+/* ニュース詳細 */
+/* 題名 */
+
+h3.headlinebusiness {
+  position: relative;
+  padding: 1rem 2rem;
+  border-bottom: 6px solid #8c7ae6;
+}
+
+h3.headlinebusiness:before {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 20%;
+  height: 6px;
+  content: '';
+  background: #9c88ff;
+}
+
+h3.headlineentertainment {
+  position: relative;
+  padding: 1rem 2rem;
+  border-bottom: 6px solid #e1b12c;
+}
+
+h3.headlineentertainment:before {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 20%;
+  height: 6px;
+  content: '';
+  background: #fbc531;
+}
+
+h3.headlinegeneral {
+  position: relative;
+  padding: 1rem 2rem;
+  border-bottom: 6px solid #44bd32;
+}
+
+h3.headlinegeneral:before {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 20%;
+  height: 6px;
+  content: '';
+  background: #4cd137;
+}
+
+h3.headlinehealth {
+  position: relative;
+  padding: 1rem 2rem;
+  border-bottom: 6px solid #40739e;
+}
+
+h3.headlinehealth:before {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 20%;
+  height: 6px;
+  content: '';
+  background: #487eb0;
+}
+
+h3.headlinescience {
+  position: relative;
+  padding: 1rem 2rem;
+  border-bottom: 6px solid #c23616;
+}
+
+h3.headlinescience:before {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 20%;
+  height: 6px;
+  content: '';
+  background: #e84118;
+}
+
+h3.headlinesports {
+  position: relative;
+  padding: 1rem 2rem;
+  border-bottom: 6px solid #192a56;
+}
+
+h3.headlinesports:before {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 20%;
+  height: 6px;
+  content: '';
+  background: #273c75;
+}
+
+h3.headlinetechnology {
+  position: relative;
+  padding: 1rem 2rem;
+  border-bottom: 6px solid #2f3640;
+}
+
+h3.headlinetechnology:before {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 20%;
+  height: 6px;
+  content: '';
+  background: #353b48;
+}
+
+/* 個人設定 */
+/* index */
+div.square {
+  padding: 0.5em 1em;
+    margin: 2em 0;
+    font-weight: bold;
+    color: #6091d3;/*文字色*/
+    background: #FFF;
+    border: solid 3px #6091d3;/*線*/
+    border-radius: 10px;/*角の丸み*/
+}
+
+.box {
+  display:flex;
+  align-items: center;
+  border-bottom: 1px solid #6091d3;
+}
+p.box-item {
+  width: calc(100% / 2);
+  padding: 10px 10px;
+  margin-bottom: 0px;
+}
+
+/* フォームバリデーション */
+/* NGなら赤くする */
+input:invalid {
+  border : tomato 2px solid;
+}
+
+/* 操作中、入力値が正しい場合は、不正エラーを消す */
+input:valid + .error .invalid {
+  display : none;
+}
+/* OKなら、その他のテキストボックス以外を緑にする */
+input:valid:not(:last-child) {
+  border : seagreen 2px solid;
+}
+
+/* inputのすぐ隣に配置するメッセージ要素 */
+.error-message {
+  font-size: 16px;
+  color: #ff7676;
+  display: none; /* 非表示に */
+}
+
+/* :invalid時だけ隣の要素を表示 */
+input:invalid + .error-message  {
+  display: block;
+}
+
+#passconfirm {
+  color: tomato;
+}
+

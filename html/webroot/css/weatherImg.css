@@ -1,0 +1,10 @@
+img#map {
+  max-width: 100%;
+  height: auto;
+  vertical-align: top;
+}
+img#prefmap {
+  max-width: 100%;
+  height: auto;
+  vertical-align: top;
+}
