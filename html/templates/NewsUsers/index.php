@@ -1,56 +1,78 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var iterable<\App\Model\Entity\NewsUser> $newsUsers
- */
-?>
-<div class="newsUsers index content">
-    <?= $this->Html->link(__('New News User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('News Users') ?></h3>
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('name') ?></th>
-                    <th><?= $this->Paginator->sort('prefecture') ?></th>
-                    <th><?= $this->Paginator->sort('local') ?></th>
-                    <th><?= $this->Paginator->sort('column_order') ?></th>
-                    <th><?= $this->Paginator->sort('email') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($newsUsers as $newsUser): ?>
-                <tr>
-                    <td><?= $this->Number->format($newsUser->id) ?></td>
-                    <td><?= h($newsUser->name) ?></td>
-                    <td><?= h($newsUser->prefecture) ?></td>
-                    <td><?= h($newsUser->local) ?></td>
-                    <td><?= h($newsUser->column_order) ?></td>
-                    <td><?= h($newsUser->email) ?></td>
-                    <td><?= h($newsUser->created) ?></td>
-                    <td><?= h($newsUser->modified) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $newsUser->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $newsUser->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $newsUser->id], ['confirm' => __('Are you sure you want to delete # {0}?', $newsUser->id)]) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+<div class="row">
+
+    <p>現在の設定</p>
+
+    <div class="box">
+      <p class="box-item">お名前</p>
+      <p class="box-item"><?= h($person->name) ?></p>
     </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+    <div class="box">
+      <p class="box-item">都道府県</p>
+      <p class="box-item"><?= $this->Listup->prefName($person->prefecture, $pref_city) ?></p>
     </div>
+    <div class="box">
+      <p class="box-item">市町村</p>
+      <p class="box-item"><?= $this->Listup->cityName($person->prefecture, $person->local , $pref_city) ?></p>
+    </div>
+    <div class="box">
+      <p class="box-item">メールアドレス</p>
+      <p class="box-item"><?= h($person->email) ?></p>
+    </div>
+    
+  <hr/>
+    <p><ニュースの表示順番></p>
+  <?php
+    mb_internal_encoding("UTF-8");
+    $view = "";
+    $col = trim($person->column_order);   // データベースから取得した$column_orderには空白文字があるためtrimで削除する
+    $countval = mb_strlen($col, "UTF-8");
+    
+    for ($i=0; $i < $countval; $i++) {
+      $number = $i + 1;
+      $view .= "<div class='box'>". "\n" . "<p class='box-item'>" . $number . "段目 </p> ";
+      switch ($col[$i]) {
+        case "1":
+          $view .= "<p class='box-item'> 天気予報 </p>" . "\n" . "</div>";
+          break;
+
+        case "2":
+          $view .= "<p class='box-item'> ビジネス </p>" . "\n" . "</div>";
+          break;
+
+        case "3":
+          $view .= "<p class='box-item'> エンターテイメント </p>" . "\n" . "</div>";
+          break;
+
+        case "4":
+          $view .= "<p class='box-item'> 全般 </p>" . "\n" . "</div>";
+          break;
+
+        case "5":
+          $view .= "<p class='box-item'> 健康 </p>" . "\n" . "</div>";
+          break;
+
+        case "6":
+          $view .= "<p class='box-item'> サイエンス </p>" . "\n" . "</div>";
+          break;
+
+        case "7":
+          $view .= "<p class='box-item'> スポーツ </p>" . "\n" . "</div>";
+          break;
+
+        case "8":
+          $view .= "<p class='box-item'> テクノロジー </p>" . "\n" . "</div>";
+          break;
+
+
+        default:
+          break;
+      }
+    }
+    echo $view;
+
+  ?>
+  <p></p>
+  <p><?= $this->Html->link('アカウントを編集する', ['controller' => 'News-users', 'action' => 'edit', $person->id],['class'=>'btn btn-primary']) ?></p>
+  <p><?= $this->Html->link('アカウントを削除する', ['controller' => 'News-users', 'action' => 'delete', $person->id],['class'=>'btn btn-danger']) ?></p>
+
 </div>
