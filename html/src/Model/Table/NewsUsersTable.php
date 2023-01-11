@@ -56,38 +56,41 @@ class NewsUsersTable extends Table
     {
         $validator
             ->scalar('name')
-            ->maxLength('name', 255)
+            ->maxLength('name', 150)
             ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->notEmptyString('name', '名前は必ず入力してください');
 
         $validator
             ->scalar('prefecture')
-            ->maxLength('prefecture', 255)
+            ->maxLength('prefecture', 50)
             ->requirePresence('prefecture', 'create')
-            ->notEmptyString('prefecture');
+            ->notEmptyString('prefecture', '都道府県を選択してください');
 
         $validator
             ->scalar('local')
-            ->maxLength('local', 255)
+            ->maxLength('local', 50)
             ->requirePresence('local', 'create')
-            ->notEmptyString('local');
+            ->notEmptyString('local','市町村を選択してください');
 
         $validator
             ->scalar('column_order')
-            ->maxLength('column_order', 255)
+            ->maxLength('column_order', 50)
             ->requirePresence('column_order', 'create')
+            ->minLength('column_order',4, '項目を４つ以上選択してください')
+            ->maxLength('column_order', 8)
             ->notEmptyString('column_order');
 
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
-            ->notEmptyString('email');
+            ->email('email', false)
+            ->notEmptyString('email', 'メールの形式で入力してください');
 
         $validator
             ->scalar('password')
             ->maxLength('password', 255)
             ->requirePresence('password', 'create')
-            ->notEmptyString('password');
+            ->notEmptyString('password', 'パスワードを入力してください');
 
         return $validator;
     }

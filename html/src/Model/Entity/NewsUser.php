@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
+use Authentication\PasswordHasher\DefaultPasswordHasher; // この行を追加
 use Cake\ORM\Entity;
 
 /**
@@ -48,4 +49,6 @@ class NewsUser extends Entity
     protected $_hidden = [
         'password',
     ];
+
+    
 }
