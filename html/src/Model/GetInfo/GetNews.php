@@ -31,53 +31,53 @@ class GetNews
       switch ($this->column[$i]) {
         case '1':   //weather
           array_push($keyword, "oneday");
-          $one = new Weather(OPENWEATHER_ONEDAY_URL, OPENWEATHER_KEY, $this->target);
+          $one = new Weather(env("OPENWEATHER_ONEDAY_URL"), env("OPENWEATHER_KEY"), $this->target);
           array_push($apidata, $one->getApiData());
 
           array_push($keyword, "fivedays");
-          $five = new weather(OPENWEATHER_FIVEDAYS_URL, OPENWEATHER_KEY, $this->target);
+          $five = new weather(env("OPENWEATHER_FIVEDAYS_URL"), env("OPENWEATHER_KEY"), $this->target);
           array_push($apidata, $five->getApiData());
           break;
 
         case '2':   // business
           array_push($keyword, "business");
-          $data = new NewsApi(NEWSAPI_URL, NEWSAPI_KEY, "business");
+          $data = new NewsApi(env("NEWSAPI_URL"), env("NEWSAPI_KEY"), "business");
           array_push($apidata, $data->getApiData());
           break;
 
         case '3':   // entertainment
           array_push($keyword, "entertainment");
-          $data = new NewsApi(NEWSAPI_URL, NEWSAPI_KEY, "entertainment");
+          $data = new NewsApi(env("NEWSAPI_URL"), env("NEWSAPI_KEY"), "entertainment");
           array_push($apidata, $data->getApiData());
           break;
 
         case '4':   // general
           array_push($keyword, "general");
-          $data = new NewsApi(NEWSAPI_URL, NEWSAPI_KEY, "general");
+          $data = new NewsApi(env("NEWSAPI_URL"), env("NEWSAPI_KEY"), "general");
           array_push($apidata, $data->getApiData());
           break;
 
         case '5':   // health
           array_push($keyword, "health");
-          $data = new NewsApi(NEWSAPI_URL, NEWSAPI_KEY, "health");
+          $data = new NewsApi(env("NEWSAPI_URL"), env("NEWSAPI_KEY"), "health");
           array_push($apidata, $data->getApiData());
           break;
 
         case '6':   // science
           array_push($keyword, "science");
-          $data = new NewsApi(NEWSAPI_URL, NEWSAPI_KEY, "science");
+          $data = new NewsApi(env("NEWSAPI_URL"), env("NEWSAPI_KEY"), "science");
           array_push($apidata, $data->getApiData());
           break;
 
         case '7':   // sports
           array_push($keyword, "sports");
-          $data = new NewsApi(NEWSAPI_URL, NEWSAPI_KEY, "sports");
+          $data = new NewsApi(env("NEWSAPI_URL"), env("NEWSAPI_KEY"), "sports");
           array_push($apidata, $data->getApiData());
           break;
 
         case '8':   // technology
           array_push($keyword, "technology");
-          $data = new NewsApi(NEWSAPI_URL, NEWSAPI_KEY, "technology");
+          $data = new NewsApi(env("NEWSAPI_URL"), env("NEWSAPI_KEY"), "technology");
           array_push($apidata, $data->getApiData());
           break;
 
@@ -96,7 +96,7 @@ class GetNews
 
   public function getCategoryList($cat) {
     $category = $cat;
-    $data = new NewsApi(NEWSAPI_URL, NEWSAPI_KEY, $category);
+    $data = new NewsApi(env("NEWSAPI_URL"), env("NEWSAPI_KEY"), $category);
     $returnData = $data->getApiData();
     return $returnData;
   }
@@ -107,11 +107,11 @@ class GetNews
     $returnData = [];
 
     array_push($keyword, "oneday");
-    $one = new Weather(OPENWEATHER_ONEDAY_URL, OPENWEATHER_KEY, $this->target);
+    $one = new Weather(env("OPENWEATHER_ONEDAY_URL"), env("OPENWEATHER_KEY"), $this->target);
     array_push($apidata, $one->getApiData());
     //
     array_push($keyword, "fivedays");
-    $five = new weather(OPENWEATHER_FIVEDAYS_URL, OPENWEATHER_KEY, $this->target);
+    $five = new weather(env("OPENWEATHER_FIVEDAYS_URL"), env("OPENWEATHER_KEY"), $this->target);
     array_push($apidata, $five->getApiData());
     //
     for ($i=0; $i < count($keyword); $i++) {

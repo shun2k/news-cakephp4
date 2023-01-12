@@ -21,7 +21,7 @@ class NewsApi implements GetInfoInterface {
   public function getApiData() {
 
     $http = new Client();
-//https://newsapi.org/v2/top-headlines?country=us&apiKey=55c4d0ba67124d1baa47bfbcd82b7bfc
+
     $response = $http->get(
       $this->apiUrl . "&category=" . $this->category . "&apiKey=" . $this->apiKey
     );
