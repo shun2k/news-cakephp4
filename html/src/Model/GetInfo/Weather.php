@@ -27,36 +27,8 @@ class Weather implements GetInfoInterface {
     );
 
     $json = $response->getJson();
-
-    // $weatherNow = $jsonNow['weather'][0]['main'];
-
-
+    
     return $json;
   }
-  // public function getOneData() {
-  //   $http = new Client();
-  //
-  //   $responseNow = $http->get(
-  //     "http://api.openweathermap.org/data/2.5/weather?q=" . $this->loc . "&appid=" . OPENWEATHER_KEY
-  //   );
-  //   $jsonNow = $responseNow->getJson();
-  //   // $weatherNow = $jsonNow['weather'][0]['main'];
-  //   // $jsonNow = OPENWEATHER_KEY;
-  //
-  //   // return $jsonNow;
-  //   return $responseNow;
-  // }
-  //
-  // public function getFivedayData() {
-  //   $http = new Client();
-  //
-  //   $responseNow = $http->get(
-  //     "http://api.openweathermap.org/data/2.5/forecast?q=" . $this->loc . "&appid=" . OPENWEATHER_KEY
-  //   );
-  //
-  //   $jsonNow = $responseNow->getJson();
-  //
-  //   // return $jsonNow;
-  //   return $responseNow;
-  // }
+  
 }
