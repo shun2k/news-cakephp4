@@ -52,6 +52,51 @@ class NewsUsersController extends AppController
 
         $this->session = $this->getRequest()->getSession();
     }
+
+    //Log in method
+    public function login()
+    {
+        // レイアウト
+        $this->viewBuilder()->setLayout('set');
+        $this->set('username', $this->username);
+        $this->set('linkAction', $this->linkAction);
+        $this->set('logintag', $this->logintag);
+        $this->set('header', ['pageTitle'=>'My News', 'subtitle'=>'ログイン画面']);
+        $this->set('footer', ['copyright'=>'Tikara']);
+
+        $this->request->allowMethod(['get', 'post']);
+        $result = $this->Authentication->getResult();
+        // POST, GET を問わず、ユーザーがログインしている場合はリダイレクトします
+        if ($result->isValid()) {
+            $service = $this->Authentication->getIdentity();
+            $this->id = $service->id;
+
+            // ログイン後、一律mainページへ
+            $redirect = $this->Authentication->getLoginRedirect() ?? '/news-users/main';
+            
+            return $this->redirect($redirect);
+        }
+        // ユーザーが submit 後、認証失敗した場合は、エラーを表示します
+        if ($this->request->is('post') && !$result->isValid()) {
+            $this->Flash->error(__('Invalid username or password'));
+            print_r($result);
+        }
+    }
+
+    // Log out method
+    public function logout()
+    {
+        $result = $this->Authentication->getResult();
+        
+        // POST, GET を問わず、ユーザーがログインしている場合はリダイレクトします
+        if ($result->isValid()) {
+            $this->Authentication->logout();
+            $this->session->destroy();
+            $redirect = $this->Authentication->getLoginRedirect() ?? '/news-users/main';
+            // return $this->redirect(['controller' => 'News-users', 'action' => 'main']);
+            return $this->redirect($redirect);
+        }
+    }
     /**
      * Index method
      *
