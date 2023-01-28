@@ -19,6 +19,11 @@ class NewsHelper extends Helper
     protected $_defaultConfig = [];
     public $helpers = ['Html', 'Url'];
 
+    private $catNames = array(
+        'business'=>'ビジネス', 'entertainment'=>'エンタメ','general'=>'全般',
+        'health'=>'健康', 'science'=>'サイエンス', 'sports'=>'スポーツ','technology'=>'テクノロジー');
+        
+
     // Main ------ getdata function ----------
     public function getNewsData($pickupNumber, $newsData) {
         $viewer = "";
@@ -64,6 +69,24 @@ class NewsHelper extends Helper
         return $viewer;
     
     }
+
+    // Newslist pgae
+    public function categoryListup($data) {
+        $viewdata = "";
+        $categoryNewsData = $data;
+
+        for ($i=0; $i < count($categoryNewsData['articles']); $i++) {
+        $viewdata .= '<p><a href=' . $categoryNewsData['articles'][$i]['url'] . '>'
+        . $categoryNewsData['articles'][$i]['title'] . '</a></p>' . "\n";
+        }
+        return $viewdata;
+    }
+
+    // ニュース名日本語表示
+    public function changeCategories($cat) {
+        return $this->catNames[$cat];
+    }
+
 
     private function dataSetHtml($catName, $enName, $newsData) {
         $returnData = "";

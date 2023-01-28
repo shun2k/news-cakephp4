@@ -22,13 +22,13 @@
     </div>
   </nav>
   <header class="row">
-    <h3 class="headline<?= $category ?>"><?= $this->listup->changeCategories($category) ?>ニュース</h3>
+    <h3 class="headline<?= $category ?>"><?= $this->News->changeCategories($category) ?>ニュース</h3>
   </header>
   <div class="row">
 
     <!-- ここから -->
     <?php
-        echo $this->Listup->categoryListup($data);
+        echo $this->News->categoryListup($data);
 
     ?>
     <!-- ここまで -->
