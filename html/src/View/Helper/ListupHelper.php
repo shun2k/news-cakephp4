@@ -9,10 +9,6 @@ class ListupHelper extends Helper {
   public $helpers = ['Html', 'Url'];
   // private $viewer = "";
 
-  private $catNames = array(
-    'business'=>'ビジネス', 'entertainment'=>'エンタメ','general'=>'全般',
-    'health'=>'健康', 'science'=>'サイエンス', 'sports'=>'スポーツ','technology'=>'テクノロジー');
-
   private $prefNumber = array(
     'Hokkaido'=>'0', 'Aomori-ken'=>'1', 'Iwate'=>'2', 'Miyagi-ken'=>'3','Akita-ken'=>'4',
     'Yamagata-ken'=>'5',  'Fukushima-ken'=>'6', 'Ibaraki'=>'7', 'Tochigi-ken'=>'8', 
@@ -26,7 +22,6 @@ class ListupHelper extends Helper {
     'FukuokaXPrefecture'=>'39', 'Saga-ken'=>'40', 'NagasakiXPrefecture'=>'41', 'Kumamoto-ken'=>'42',
     'OitaXPrefecture'=>'43', 'Miyazaki-ken'=>'44', 'Kagoshima-ken'=>'45', 'Okinawa-ken'=>'46');
       
-
   //------------- weatherNews --------------
   // main 
   public function getWeahterNews($data, $pref, $local, $pref_city) {
@@ -384,19 +379,6 @@ class ListupHelper extends Helper {
     return $this->viewer;
   }
 
-// News
-// --------------- categoryListup function -------------------
-  public function categoryListup($data) {
-    $viewdata = "";
-    $categoryNewsData = $data;
-
-    for ($i=0; $i < count($categoryNewsData['articles']); $i++) {
-      $viewdata .= '<p><a href=' . $categoryNewsData['articles'][$i]['url'] . '>'
-      . $categoryNewsData['articles'][$i]['title'] . '</a></p>' . "\n";
-    }
-    return $viewdata;
-  }
-
 // Weather
 //---- -----weatherDetail function------------------
   public function weatherDetail($data) {
@@ -678,10 +660,10 @@ class ListupHelper extends Helper {
     return $returnData;
   }
 
-  // ニュース名日本語表示
-  public function changeCategories($cat) {
-    return $this->catNames[$cat];
-  }
+  // // ニュース名日本語表示
+  // public function changeCategories($cat) {
+  //   return $this->catNames[$cat];
+  // }
 
   // forecastの日時データを修正
   public function timeshift($data) {
@@ -775,9 +757,5 @@ class ListupHelper extends Helper {
     return $returnData;
   }
 }
-
-
-
-
 
 ?>
