@@ -5,7 +5,7 @@ namespace APP\View\Helper;
 use Cake\View\View;
 use Cake\View\Helper;
 
-class DataConversion {
+class DataConversion extends Helper {
 
   public function changePicture($id) {
     $check = intval($id);

@@ -13,136 +13,19 @@ class ListupHelper extends Helper {
     'business'=>'ビジネス', 'entertainment'=>'エンタメ','general'=>'全般',
     'health'=>'健康', 'science'=>'サイエンス', 'sports'=>'スポーツ','technology'=>'テクノロジー');
 
-    private $prefNumber = array(
-      'Hokkaido'=>'0', 'Aomori-ken'=>'1', 'Iwate'=>'2', 'Miyagi-ken'=>'3','Akita-ken'=>'4',
-      'Yamagata-ken'=>'5',  'Fukushima-ken'=>'6', 'Ibaraki'=>'7', 'Tochigi-ken'=>'8', 
-      'Gunma-ken'=>'9', 'Saitama-ken'=>'10',  'Chiba-ken'=>'11', 'Tokyo'=>'12',
-      'Kanagawa'=>'13', 'Niigata-ken'=>'14', 'Toyama-ken'=>'15', 'Ishikawa-ken'=>'16',
-      'Fukui-ken'=>'17', 'Yamanashi-ken'=>'18', 'Nagano-ken'=>'19', 'Gifu-ken'=>'20',
-      'Shizuoka-ken'=>'21', 'Aichi-ken'=>'22', 'Mie-ken'=>'23', 'Shiga-ken'=>'24', 'KyotoXPrefecture,JP'=>'25', 
-      'Osaka-fu'=>'26', 'Hyogo'=>'27', 'Nara-ken'=>'28', 'Wakayama-ken'=>'29', 'Tottori-ken'=>'30',
-      'Shimane-ken' =>'31', 'Okayama-ken'=>'32', 'Hiroshima-ken'=>'33', 'Yamaguchi-ken'=>'34',
-      'Tokushima-ken'=>'35', 'Kagawa-ken'=>'36', 'Ehime-ken'=>'37', 'KochiXPrefecture'=>'38',
-      'FukuokaXPrefecture'=>'39', 'Saga-ken'=>'40', 'NagasakiXPrefecture'=>'41', 'Kumamoto-ken'=>'42',
-      'OitaXPrefecture'=>'43', 'Miyazaki-ken'=>'44', 'Kagoshima-ken'=>'45', 'Okinawa-ken'=>'46');
+  private $prefNumber = array(
+    'Hokkaido'=>'0', 'Aomori-ken'=>'1', 'Iwate'=>'2', 'Miyagi-ken'=>'3','Akita-ken'=>'4',
+    'Yamagata-ken'=>'5',  'Fukushima-ken'=>'6', 'Ibaraki'=>'7', 'Tochigi-ken'=>'8', 
+    'Gunma-ken'=>'9', 'Saitama-ken'=>'10',  'Chiba-ken'=>'11', 'Tokyo'=>'12',
+    'Kanagawa'=>'13', 'Niigata-ken'=>'14', 'Toyama-ken'=>'15', 'Ishikawa-ken'=>'16',
+    'Fukui-ken'=>'17', 'Yamanashi-ken'=>'18', 'Nagano-ken'=>'19', 'Gifu-ken'=>'20',
+    'Shizuoka-ken'=>'21', 'Aichi-ken'=>'22', 'Mie-ken'=>'23', 'Shiga-ken'=>'24', 'KyotoXPrefecture,JP'=>'25', 
+    'Osaka-fu'=>'26', 'Hyogo'=>'27', 'Nara-ken'=>'28', 'Wakayama-ken'=>'29', 'Tottori-ken'=>'30',
+    'Shimane-ken' =>'31', 'Okayama-ken'=>'32', 'Hiroshima-ken'=>'33', 'Yamaguchi-ken'=>'34',
+    'Tokushima-ken'=>'35', 'Kagawa-ken'=>'36', 'Ehime-ken'=>'37', 'KochiXPrefecture'=>'38',
+    'FukuokaXPrefecture'=>'39', 'Saga-ken'=>'40', 'NagasakiXPrefecture'=>'41', 'Kumamoto-ken'=>'42',
+    'OitaXPrefecture'=>'43', 'Miyazaki-ken'=>'44', 'Kagoshima-ken'=>'45', 'Okinawa-ken'=>'46');
       
-
-  // Main ------ getdata function ----------
-  public function getNewsData($pickupNumber, $newsData) {
-    $viewer = "";
-    switch ($pickupNumber) {
-      
-      case '2': // 2 - ビジネス パープル　#9c88ff
-        
-        $viewer .= '<p class = "category" id = "business"><span>ビジネス</span></p>'  . "\n";
-
-        $maxcount = $newsData['business']['totalResults'] < 5 ? $newsData['business']['totalResults'] : 5;
-        for ($j=0; $j < $maxcount; $j++) {
-          $viewer .= '<p><a href=' . $newsData['business']['articles'][$j]['url'] . '>'
-          . $newsData['business']['articles'][$j]['title'] . '</a></p>' . "\n";
-        }
-
-        $link = $this->Html->link('もっと見る', ['controller' => 'News-users', 'action' => 'newslist', 'business' ]);
-        $viewer .= '<p>' . $link . '</p>' . "\n";
-
-        break;
-
-      case '3': // 3 - エンターテイメント イエロー #fbc531
-        $viewer .= "\n" . '<p class = "category" id = "entertainment"><span>エンタメ</span></p>'  . "\n";
-
-        $maxcount = $newsData['entertainment']['totalResults'] < 5 ? $newsData['entertainment']['totalResults'] : 5;
-        for ($j=0; $j < $maxcount; $j++) {
-          $viewer .= '<p><a href=' . $newsData['entertainment']['articles'][$j]['url'] . '>'
-          . $newsData['entertainment']['articles'][$j]['title'] . '</a></p>' . "\n";
-        }
-
-
-        $link = $this->Html->link('もっと見る', ['controller' => 'News-users', 'action' => 'newslist', 'entertainment' ]);
-        $viewer .= '<p>' . $link . '</p>' . "\n";
-
-        break;
-
-      case '4': // 4 - 全般 グリーン #4cd137
-        $viewer .= "\n" . '<p class = "category" id = "general"><span>全　般</sapn></p>'  . "\n";
-
-        $maxcount = $newsData['general']['totalResults'] < 5 ? $newsData['general']['totalResults'] : 5;
-        for ($j=0; $j < $maxcount; $j++) {
-          $viewer .= '<p><a href=' . $newsData['general']['articles'][$j]['url'] . '>'
-          . $newsData['general']['articles'][$j]['title'] . '</a></p>' . "\n";
-        }
-
-
-        $link = $this->Html->link('もっと見る', ['controller' => 'News-users', 'action' => 'newslist', 'general' ]);
-        $viewer .= '<p>' . $link . '</p>' . "\n";
-
-        break;
-
-      case '5': // 5 - 健康 紺 #487eb0
-        $viewer .= "\n" . '<p class = "category" id = "health"><span>健　康</span></p>'  . "\n";
-
-        $maxcount = $newsData['health']['totalResults'] < 5 ? $newsData['health']['totalResults'] : 5;
-        for ($j=0; $j < $maxcount; $j++) {
-          $viewer .= '<p><a href=' . $newsData['health']['articles'][$j]['url'] . '>'
-          . $newsData['health']['articles'][$j]['title'] . '</a></p>' . "\n";
-        }
-
-
-        $link = $this->Html->link('もっと見る', ['controller' => 'News-users', 'action' => 'newslist', 'health' ]);
-        $viewer .= '<p>' . $link . '</p>' . "\n";
-
-        break;
-
-      case '6': // 6 - サイエンス 赤　#e84118
-        $viewer .= '<p class = "category" id = "science"><span>サイエンス</span></p>'  . "\n";
-
-        $maxcount = $newsData['science']['totalResults'] < 5 ? $newsData['science']['totalResults'] : 5;
-        for ($j=0; $j < $maxcount; $j++) {
-          $viewer .= '<p><a href=' . $newsData['science']['articles'][$j]['url'] . '>'
-          . $newsData['science']['articles'][$j]['title'] . '</a></p>' . "\n";
-        }
-
-
-        $link = $this->Html->link('もっと見る', ['controller' => 'News-users', 'action' => 'newslist', 'science' ]);
-        $viewer .= '<p>' . $link . '</p>' . "\n";
-
-        break;
-
-      case '7': // 7 - スポーツ #273c75
-        $viewer .= '<hr>' . "\n" . '<p class = "category" id = "sports"><span>スポーツ</span></p>'  . "\n";
-
-        $maxcount = $newsData['sports']['totalResults'] < 5 ? $newsData['sports']['totalResults'] : 5;
-        for ($j=0; $j < $maxcount; $j++) {
-          $viewer .= '<p><a href=' . $newsData['sports']['articles'][$j]['url'] . '>'
-          . $newsData['sports']['articles'][$j]['title'] . '</a></p>' . "\n";
-        }
-
-
-        $link = $this->Html->link('もっと見る', ['controller' => 'News-users', 'action' => 'newslist', 'sports' ]);
-        $viewer .= '<p>' . $link . '</p>' . "\n";
-
-        break;
-
-      case '8': // 8 - テクノロジー グレー　#353b48
-        $viewer .= '<hr>' . "\n" . '<p class = "category" id = "technology"><span>テクノロジー</span></p>'  . "\n";
-
-        $maxcount = $newsData['technology']['totalResults'] < 5 ? $newsData['technology']['totalResults'] : 5;
-        for ($j=0; $j < $maxcount; $j++) {
-          $viewer .= '<p><a href=' . $newsData['technology']['articles'][$j]['url'] . '>'
-          . $newsData['technology']['articles'][$j]['title'] . '</a></p>' . "\n";
-        }
-
-
-        $link = $this->Html->link('もっと見る', ['controller' => 'News-users', 'action' => 'newslist', 'technology' ]);
-        $viewer .= '<p>' . $link . '</p>' . "\n";
-
-        break;
-      default:
-        // code...
-        break;
-    }
-    return $viewer;
-    
-  }
 
   //------------- weatherNews --------------
   // main 
