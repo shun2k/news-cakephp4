@@ -90,6 +90,7 @@ class NewsHelper extends Helper
 
     // mainの各ニュースdataをhtmlに当てはめる
     private function dataSetHtml($catName, $enName, $newsData) {
+
         $returnData = "";
         $returnData .= '<p class = "category"  id =' . $enName . '><span>' . $catName . '</span></p>' . "\n";
 
@@ -99,7 +100,7 @@ class NewsHelper extends Helper
             . $newsData[$enName]['articles'][$j]['title'] . '</a></p>' . "\n";
         }
 
-        $link = $this->Html->link('もっと見る', ['controller' => 'News-users', 'action' => 'newslist', $catName ]);
+        $link = $this->Html->link('もっと見る', ['controller' => 'News-users', 'action' => 'newslist', array_search($catName, $this->catNames) ]);
         $returnData .= '<p>' . $link . '</p>' . "\n";
         
         return $returnData;

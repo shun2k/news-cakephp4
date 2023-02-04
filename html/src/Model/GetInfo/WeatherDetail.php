@@ -8,6 +8,15 @@ use Cake\Http\Client;
 use App\Model\GetInfo\Weather;
 
 class WeatherDetail extends Weather {
+    private string $pageName;
+    // コンストラクタ上書き
+
+    function __construct($url, $key, $pref, $Name) {
+        $this->loc = $pref;
+        $this->apiUrl = $url;
+        $this->apiKey = $key;
+        $this->pageName = $Name;
+    }
 // getApiData() を上書きする
     public function getApiData() {
         $http = new Client();
@@ -23,20 +32,78 @@ class WeatherDetail extends Weather {
         $baseDate = $this->baseTime($json);
 
         // 天気予報の情報を整理
-        $returnData = $this->choiceData($baseDate, $json);
+        $returnData = $this->choiceData($baseDate, $json, $this->pageName);
         
         return $returnData;
     }
 
+    // jsondataの時間を日本時間に修正する
+    private function timeshift($data) {
+        $returnData = $data;
+        for ($i=0; $i < 40; $i++) {  
+            $choiceDate = new \Datetime($returnData['list'][$i]['dt_txt']);
+            $choiceDate->modify('+9 hours');
+            $formatDate = $choiceDate->format('Y-m-d H:i:s');
+            $returnData['list'][$i]['dt_txt'] = $formatDate;
+        }
+        return $returnData;
+    }
+
+    // 現在の時間を基準に最初に表示する時間を返す
+    private function baseTime($newsData) {
+        $setTime = "";
+        $nowDate = date('Y-m-d');
+
+        for ($i=0; $i < 40; $i++) {
+            if ($nowDate <= substr($newsData['list'][$i]['dt_txt'], 0, 10)) {
+                $firstData = intval(substr($newsData['list'][$i]['dt_txt'], 11, 2));
+                print_r($firstData);
+                switch ($firstData) {
+                case '0':
+                    $setTime = "03:00:00";
+                    break;
+                case '3':
+                    $setTime = "06:00:00";
+                    break;
+                case '6':
+                    $setTime = "09:00:00";
+                    break;
+                case '9':
+                    $setTime = "12:00:00";
+                    break;
+                case '12':
+                    $setTime = "15:00:00";
+                    break;
+                case '15':
+                    $setTime = "18:00:00";
+                    break;
+                case '18':
+                    $setTime = "21:00:00";
+                    break;
+                case '21':
+                    $setTime = "00:00:00";
+                    $nowDate = date("Y-m-d", strtotime("+1 day"));   // nowDateを+1日する
+                default:
+                    break;
+                }
+                break;
+            }
+        }
+
+        $returnTime = new \DateTime($nowDate . $setTime);
+        return $returnTime;
+    }
+
     // WeatherMain独自のapiデータから必要なデータだけを抽出するfunction
-    private function choiceData($baseDate, $newsData) {
+    private function choiceData($baseDate, $newsData, $pageName) {
+        $count = $pageName === "Main" ? 4 : 24;
         for ($i=0; $i < 40; $i++) {
             // baseDateと同じ配列は残し、それ以外は削除する
-            if ($baseDate === $newsData['fivedays']['list'][$i]['dt_txt']) {
-                array_splice($newsData['fivedays']['list'], $i + 24);
+            if ($baseDate === $newsData['list'][$i]['dt_txt']) {
+                array_splice($newsData['list'], $i + $count);
                 break;    
             } else {
-                array_splice($newsData['fivedays']['list'], $i, 1);
+                array_splice($newsData['list'], $i, 1);
             }  
         }
         return $newsData;
