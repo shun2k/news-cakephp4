@@ -22,7 +22,7 @@ class NewsHelper extends Helper
     private $catNames = array(
         'business'=>'ビジネス', 'entertainment'=>'エンタメ','general'=>'全般',
         'health'=>'健康', 'science'=>'サイエンス', 'sports'=>'スポーツ','technology'=>'テクノロジー');
-        
+
 
     // Main ------ getdata function ----------
     public function getNewsData($pickupNumber, $newsData) {
@@ -88,6 +88,7 @@ class NewsHelper extends Helper
     }
 
 
+    // mainの各ニュースdataをhtmlに当てはめる
     private function dataSetHtml($catName, $enName, $newsData) {
         $returnData = "";
         $returnData .= '<p class = "category"  id =' . $enName . '><span>' . $catName . '</span></p>' . "\n";

@@ -55,6 +55,7 @@ class ListupHelper extends Helper {
     for ($i=0; $i < 40; $i++) {
       if ($nowDate <= substr($newsData['fivedays']['list'][$i]['dt_txt'], 0, 10)) {
         $firstData = intval(substr($newsData['fivedays']['list'][$i]['dt_txt'], 11, 2));
+        print_r($firstData);
         switch ($firstData) {
           case '0':
             $setTime = "03:00:00";
@@ -90,7 +91,7 @@ class ListupHelper extends Helper {
     $baseDateTime = new \DateTime($nowDate . $setTime);
     $baseDate = $baseDateTime->format('Y-m-d H:i:s');
     array_push($printDate, $this->formatdate($baseDate));
-    // print_r($baseDate);
+    // print_r($baseDateTime);
     // print_r($nowDate);
     // $viewdata = "基準 - $baseDate \n";
 
@@ -145,244 +146,11 @@ class ListupHelper extends Helper {
     return $viewer;
   }
 
-
-  // Main page
-  // Weather listup function
-  public function listup($col, $data, $pref) {
-    
-    $column = $col;
-    $newsData = $data;
-    $prefecture = $pref;
-    $cnt = 0;
-
-    // $dataに天気予報が含まれる場合の処理
-    if (strpos($column, '1') !== false) {
-      // $newsData = $this->timeshift($data);
-      $printDate = [];  // 表示する日付
-      $setTime = "";    // 天気リストの最初の時間を決める
-      $timecheck = [];  // 表示する時間
-      $printWeather = [];   // 表示する天気
-      $printTemp = [];    // 表示する気温
-
-      // 天気情報
-      $nowWeatherIcon = $this->changePicture($newsData['oneday']['weather'][0]['id']);
-      $nowWeahterTemp = $this->tempformat($newsData['oneday']['main']['temp']);
-
-      // 基準時間の設定(現在の時刻)
-      $nowDate = date('Y-m-d');
-      array_push($printDate, $nowDate);
-
-      // 最初に表示する時間を決める（テーブルで表示する天気）
-      // もしforecastの最初のデータが次の日なら、当日の天気は空白にする
-      for ($i=0; $i < 40; $i++) {
-        if ($nowDate <= substr($newsData['fivedays']['list'][$i]['dt_txt'], 0, 10)) {
-          $firstData = intval(substr($newsData['fivedays']['list'][$i]['dt_txt'], 11, 2));
-          switch ($firstData) {
-            case '0':
-              $setTime = "03:00:00";
-              break;
-            case '3':
-              $setTime = "06:00:00";
-              break;
-            case '6':
-              $setTime = "09:00:00";
-              break;
-            case '9':
-              $setTime = "12:00:00";
-              break;
-            case '12':
-              $setTime = "15:00:00";
-              break;
-            case '15':
-              $setTime = "18:00:00";
-              break;
-            case '18':
-              $setTime = "21:00:00";
-              break;
-            default:
-              $setTime = "00:00:00";
-              $nowDate = date("Y-m-d", strtotime("+1 day"));   // nowDateを+1日する
-              break;
-          }
-          break;
-        }
-      }
-
-      // 時間の設定
-      $baseDateTime = new \DateTime($nowDate . $setTime);
-      $baseDate = $baseDateTime->format('Y-m-d H:i:s');
-      array_push($printDate, $this->formatdate($baseDate));
-
-      // $viewdata = "基準 - $baseDate \n";
-
-      // 配列に書くデータを格納
-      for ($i=0; $i < 16; $i++) {
-
-        if ($baseDate === $newsData['fivedays']['list'][$i]['dt_txt']) {
-          $icon = $this->changePicture($newsData['fivedays']['list'][$i]['weather'][0]['id']);
-          $setIcon = $this->Html->image($icon, ['class' => 'mainpageWeathericon']);
-          $setTemp = $this->tempformat($newsData['fivedays']['list'][$i]['main']['temp']);
-          array_push($printWeather, $setIcon);
-          array_push($printTemp, $setTemp);
-          $setTime = $this->formatTime($newsData['fivedays']['list'][$i]['dt_txt']);
-          array_push($timecheck, $setTime);
-
-          // $viewdata .= $baseDate . "\n";
-          $baseDateTime->modify('+3 hours');
-          $baseDate = $baseDateTime->format('Y-m-d H:i:s');
-
-          //printdate save
-          // if (substr($newsData['fivedays']['list'][$i]['dt_txt'], 11, 2) == '00') {
-          //   array_push($printDate, $this->formatdate($newsData['fivedays']['list'][$i]['dt_txt']));
-          // }
-        }
-
-      }
-
-
-    }
-
-    // print_r($column);
-    // print_r(mb_strlen($column, "UTF-8"));
-    // print_r(mb_strlen('2345', "UTF-8"));
-
-    // columnの値に対応したニュースの表示
-    for ($i=0; $i < mb_strlen($column, 'UTF-8'); $i++) { 
-      switch ($column[$i]) {
-        case '1':   // 1 - 天気 ブルー　#00a8ff
-          $this->viewer .= '<p class = "category" id = "weather"><span>天気予報</span></p>' . "\n" .
-                           '<div class="col-sm-6">' . "\n" .
-                           ' <p class="text-center">'. $this->formatdate($nowDate) . ' 現在の天気</p>' . "\n" .
-                           ' <p class="text-center" >' . $this->Html->image($nowWeatherIcon, ['class' => 'nowWeather']) . '</p>' . "\n" .
-                           ' <p class="text-center">' . $nowWeahterTemp . ' ℃</p>' . "\n" .
-                           '</div>' . "\n" .
-                           '<div class="col-sm-6">' . "\n" .
-                           ' <table class="table">' . "\n" .
-                           '  <tbody class="table table-striped">' . "\n";
-
-
-          for ($i=0; $i < 4; $i++) {
-            $this->viewer .= '   <tr><td class="align-middle">' . $timecheck[$i] . '</td><td>' . $printWeather[$i] .
-            '</td><td class="align-middle">' . $printTemp[$i] . '℃</td></tr>' . "\n";
-          }
-
-          $this->viewer .= '  </tbody>' . "\n".
-                           ' </table>' . "\n".
-                           '</div>';
-          $link = $this->Html->link('もっと見る', ['controller' => 'News', 'action' => 'weatherDetail', $prefecture]);
-          $this->viewer .= '<p>' . $link . '</p>' . "\n";
-
-          break;
-        case '2': // 2 - ビジネス パープル　#9c88ff
-          $this->viewer .= '<p class = "category" id = "business"><span>ビジネス</span></p>'  . "\n";
-
-          for ($j=0; $j < 5; $j++) {
-            $this->viewer .= '<p><a href=' . $newsData['business']['articles'][$j]['url'] . '>'
-            . $newsData['business']['articles'][$j]['title'] . '</a></p>' . "\n";
-          }
-
-          $link = $this->Html->link('もっと見る', ['controller' => 'News', 'action' => 'newslist', 'business' ]);
-          $this->viewer .= '<p>' . $link . '</p>' . "\n";
-
-          break;
-
-        case '3': // 3 - エンターテイメント イエロー #fbc531
-          $this->viewer .= "\n" . '<p class = "category" id = "entertainment"><span>エンタメ</span></p>'  . "\n";
-
-          for ($j=0; $j < 5; $j++) {
-            $this->viewer .= '<p><a href=' . $newsData['entertainment']['articles'][$j]['url'] . '>'
-            . $newsData['entertainment']['articles'][$j]['title'] . '</a></p>' . "\n";
-          }
-
-
-          $link = $this->Html->link('もっと見る', ['controller' => 'News', 'action' => 'newslist', 'entertainment' ]);
-          $this->viewer .= '<p>' . $link . '</p>' . "\n";
-
-          break;
-
-        case '4': // 4 - 全般 グリーン #4cd137
-          $this->viewer .= "\n" . '<p class = "category" id = "general"><span>全　般</sapn></p>'  . "\n";
-
-          for ($j=0; $j < 5; $j++) {
-            $this->viewer .= '<p><a href=' . $newsData['general']['articles'][$j]['url'] . '>'
-            . $newsData['general']['articles'][$j]['title'] . '</a></p>' . "\n";
-          }
-
-
-          $link = $this->Html->link('もっと見る', ['controller' => 'News', 'action' => 'newslist', 'general' ]);
-          $this->viewer .= '<p>' . $link . '</p>' . "\n";
-
-          break;
-
-        case '5': // 5 - 健康 紺 #487eb0
-          $this->viewer .= "\n" . '<p class = "category" id = "health"><span>健　康</span></p>'  . "\n";
-
-          for ($j=0; $j < 5; $j++) {
-            $this->viewer .= '<p><a href=' . $newsData['health']['articles'][$j]['url'] . '>'
-            . $newsData['health']['articles'][$j]['title'] . '</a></p>' . "\n";
-          }
-
-
-          $link = $this->Html->link('もっと見る', ['controller' => 'News', 'action' => 'newslist', 'health' ]);
-          $this->viewer .= '<p>' . $link . '</p>' . "\n";
-
-          break;
-
-        case '6': // 6 - サイエンス 赤　#e84118
-          $this->viewer .= '<p class = "category" id = "science"><span>サイエンス</span></p>'  . "\n";
-
-          for ($j=0; $j < 5; $j++) {
-            $this->viewer .= '<p><a href=' . $newsData['science']['articles'][$j]['url'] . '>'
-            . $newsData['science']['articles'][$j]['title'] . '</a></p>' . "\n";
-          }
-
-
-          $link = $this->Html->link('もっと見る', ['controller' => 'News', 'action' => 'newslist', 'science' ]);
-          $this->viewer .= '<p>' . $link . '</p>' . "\n";
-
-          break;
-
-        case '7': // 7 - スポーツ #273c75
-          $this->viewer .= '<hr>' . "\n" . '<p class = "category" id = "sports"><span>スポーツ</span></p>'  . "\n";
-
-          for ($j=0; $j < 5; $j++) {
-            $this->viewer .= '<p><a href=' . $newsData['sports']['articles'][$j]['url'] . '>'
-            . $newsData['sports']['articles'][$j]['title'] . '</a></p>' . "\n";
-          }
-
-
-          $link = $this->Html->link('もっと見る', ['controller' => 'News', 'action' => 'newslist', 'sports' ]);
-          $this->viewer .= '<p>' . $link . '</p>' . "\n";
-
-          break;
-
-        case '8': // 8 - テクノロジー グレー　#353b48
-          $this->viewer .= '<hr>' . "\n" . '<p class = "category" id = "technology"><span>テクノロジー</span></p>'  . "\n";
-
-          for ($j=0; $j < 5; $j++) {
-            $this->viewer .= '<p><a href=' . $newsData['technology']['articles'][$j]['url'] . '>'
-            . $newsData['technology']['articles'][$j]['title'] . '</a></p>' . "\n";
-          }
-
-
-          $link = $this->Html->link('もっと見る', ['controller' => 'News', 'action' => 'newslist', 'technology' ]);
-          $this->viewer .= '<p>' . $link . '</p>' . "\n";
-
-          break;
-        default:
-          // code...
-          break;
-      }
-      $cnt += 1;
-    }
-    $this->viewer .= '<p> 回数' . $cnt . '<p>' . "\n";
-    return $this->viewer;
-  }
-
 // Weather
 //---- -----weatherDetail function------------------
   public function weatherDetail($data) {
     $weatherData = $this->timeshift($data);     // データの日時を日本時間に修正
+    var_dump($weatherData);
     date_default_timezone_set('Asia/Tokyo');    // timezoneの設定
     $viewdata = "";   // returnするデータ
     // $viewdata = $weatherData['oneday']['main']['temp'];
@@ -462,15 +230,11 @@ class ListupHelper extends Helper {
               array_push($timecheck, "-");
             }
             break;
+          case '21':
+              // 翌日の設定
+              $setTime = "00:00:00";
+              $nowDate = date("Y-m-d", strtotime("+1 day"));
           default:
-            // 翌日の設定
-            $setTime = "00:00:00";
-
-            // for ($i=0; $i < 2; $i++) {
-            //   array_push($printWeather, "-");
-            //   array_push($printTemp, "-");
-            //   array_push($timecheck, "-");
-            // }
             break;
         }
         break;
