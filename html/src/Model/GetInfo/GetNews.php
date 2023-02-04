@@ -35,7 +35,7 @@ class GetNews
           array_push($apidata, $one->getApiData());
 
           array_push($keyword, "fivedays");
-          $five = new weather(env("OPENWEATHER_FIVEDAYS_URL"), env("OPENWEATHER_KEY"), $this->target);
+          $five = new WeatherDetail(env("OPENWEATHER_FIVEDAYS_URL"), env("OPENWEATHER_KEY"), $this->target, "Main");
           // 取り出したデータを修正する
 
           array_push($apidata, $five->getApiData());
@@ -115,7 +115,7 @@ class GetNews
     array_push($apidata, $one->getApiData());
     //
     array_push($keyword, "fivedays");
-    $five = new WeatherDetail(env("OPENWEATHER_FIVEDAYS_URL"), env("OPENWEATHER_KEY"), $this->target);
+    $five = new WeatherDetail(env("OPENWEATHER_FIVEDAYS_URL"), env("OPENWEATHER_KEY"), $this->target, "Five");
     array_push($apidata, $five->getApiData());
     //
     for ($i=0; $i < count($keyword); $i++) {
