@@ -33,13 +33,20 @@
 
       for ($i=0; $i < $countval; $i++) {
         if ($column[$i] === "1") {
+          echo '<p class = "category" id = "weather"><span>天気予報</span></p>';
+          echo '<div class="col-sm-6">';
+          echo '  <p class="text-center"> 1/28 〇〇の天気 </p>';
+          echo '  <p class="text-center"> -- アイコン -- </p>';
+          echo '  <p class="text-center"> 3 ℃</p>';
+          echo '</div>';
+          echo '<div class="col-sm-6">';
+          echo ' <table class="table">';
+          echo '  <tbody class="table table-striped">';
           echo $this->Listup->getWeahterNews($newsdata, $prefecture, $local, $pref_city);
         } else {
           echo $this->News->getNewsData($column[$i], $newsdata);
         }
       }
-
-      // echo $this->Listup->listup($col, $data, $pref);
     ?>
 
     <!-- ここまで -->

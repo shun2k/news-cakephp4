@@ -31,11 +31,13 @@ class GetNews
       switch ($this->column[$i]) {
         case '1':   //weather
           array_push($keyword, "oneday");
-          $one = new Weather(env("OPENWEATHER_ONEDAY_URL"), env("OPENWEATHER_KEY"), $this->target);
+          $one = new WeatherMain(env("OPENWEATHER_ONEDAY_URL"), env("OPENWEATHER_KEY"), $this->target);
           array_push($apidata, $one->getApiData());
 
           array_push($keyword, "fivedays");
           $five = new weather(env("OPENWEATHER_FIVEDAYS_URL"), env("OPENWEATHER_KEY"), $this->target);
+          // 取り出したデータを修正する
+
           array_push($apidata, $five->getApiData());
           break;
 
@@ -94,6 +96,7 @@ class GetNews
     return $returnData;
   }
 
+  // Newslist で利用
   public function getCategoryList($cat) {
     $category = $cat;
     $data = new NewsApi(env("NEWSAPI_URL"), env("NEWSAPI_KEY"), $category);
@@ -101,17 +104,18 @@ class GetNews
     return $returnData;
   }
 
+  // WeatherDeteil で利用
   public function getWeatherDitail() {
     $keyword = [];
     $apidata = [];
     $returnData = [];
 
     array_push($keyword, "oneday");
-    $one = new Weather(env("OPENWEATHER_ONEDAY_URL"), env("OPENWEATHER_KEY"), $this->target);
+    $one = new WeatherMain(env("OPENWEATHER_ONEDAY_URL"), env("OPENWEATHER_KEY"), $this->target);
     array_push($apidata, $one->getApiData());
     //
     array_push($keyword, "fivedays");
-    $five = new weather(env("OPENWEATHER_FIVEDAYS_URL"), env("OPENWEATHER_KEY"), $this->target);
+    $five = new WeatherDetail(env("OPENWEATHER_FIVEDAYS_URL"), env("OPENWEATHER_KEY"), $this->target);
     array_push($apidata, $five->getApiData());
     //
     for ($i=0; $i < count($keyword); $i++) {
