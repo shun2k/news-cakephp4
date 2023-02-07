@@ -25,7 +25,7 @@ class ListupHelper extends Helper {
   //------------- weatherNews --------------
   // main 
   public function getWeahterNews($data, $pref, $local, $pref_city) {
-    $newsData = $this->timeshift($data);
+    $newsData = $data;
 
     // for ($i=0; $i<40; $i++) {
     //   echo $newsData['fivedays']['list'][$i]['dt_txt'];
@@ -41,51 +41,51 @@ class ListupHelper extends Helper {
     // title -- 地名
     $areaname = $this->changeName($pref, $local, $pref_city);
 
-    // 天気情報
+    // 現在の天気情報
     $nowWeatherIcon = $this->changePicture($newsData['oneday']['weather'][0]['id']);
     $nowWeahterTemp = $this->tempformat($newsData['oneday']['main']['temp']);
 
     // 基準時間の設定(現在の時刻)
-    date_default_timezone_set('Asia/Tokyo');    // timezoneの設定
+    // date_default_timezone_set('Asia/Tokyo');    // timezoneの設定
     $nowDate = date('Y-m-d');
     array_push($printDate, $nowDate);
 
     // 最初に表示する時間を決める（テーブルで表示する天気）
     // もしforecastの最初のデータが次の日なら、当日の天気は空白にする
-    for ($i=0; $i < 40; $i++) {
-      if ($nowDate <= substr($newsData['fivedays']['list'][$i]['dt_txt'], 0, 10)) {
-        $firstData = intval(substr($newsData['fivedays']['list'][$i]['dt_txt'], 11, 2));
-        print_r($firstData);
-        switch ($firstData) {
-          case '0':
-            $setTime = "03:00:00";
-            break;
-          case '3':
-            $setTime = "06:00:00";
-            break;
-          case '6':
-            $setTime = "09:00:00";
-            break;
-          case '9':
-            $setTime = "12:00:00";
-            break;
-          case '12':
-            $setTime = "15:00:00";
-            break;
-          case '15':
-            $setTime = "18:00:00";
-            break;
-          case '18':
-            $setTime = "21:00:00";
-            break;
-          default:
-            $setTime = "00:00:00";
-            $nowDate = date("Y-m-d", strtotime("+1 day"));   // nowDateを+1日する
-            break;
-        }
-        break;
-      }
-    }
+    // for ($i=0; $i < 40; $i++) {
+    //   if ($nowDate <= substr($newsData['fivedays']['list'][$i]['dt_txt'], 0, 10)) {
+    //     $firstData = intval(substr($newsData['fivedays']['list'][$i]['dt_txt'], 11, 2));
+    //     print_r($firstData);
+    //     switch ($firstData) {
+    //       case '0':
+    //         $setTime = "03:00:00";
+    //         break;
+    //       case '3':
+    //         $setTime = "06:00:00";
+    //         break;
+    //       case '6':
+    //         $setTime = "09:00:00";
+    //         break;
+    //       case '9':
+    //         $setTime = "12:00:00";
+    //         break;
+    //       case '12':
+    //         $setTime = "15:00:00";
+    //         break;
+    //       case '15':
+    //         $setTime = "18:00:00";
+    //         break;
+    //       case '18':
+    //         $setTime = "21:00:00";
+    //         break;
+    //       default:
+    //         $setTime = "00:00:00";
+    //         $nowDate = date("Y-m-d", strtotime("+1 day"));   // nowDateを+1日する
+    //         break;
+    //     }
+    //     break;
+    //   }
+    // }
 
     // 時間の設定
     $baseDateTime = new \DateTime($nowDate . $setTime);
@@ -96,34 +96,58 @@ class ListupHelper extends Helper {
     // $viewdata = "基準 - $baseDate \n";
 
     // 配列に書くデータを格納 - 繰り返しを16から40に変更
-    for ($i=0; $i < 24; $i++) {
+    // for ($i=0; $i < 24; $i++) {
 
-      if ($baseDate === $newsData['fivedays']['list'][$i]['dt_txt']) {
-        $icon = $this->changePicture($newsData['fivedays']['list'][$i]['weather'][0]['id']);
-        $setIcon = $this->Html->image($icon, ['class' => 'mainpageWeathericon']);
-        $setTemp = $this->tempformat($newsData['fivedays']['list'][$i]['main']['temp']);
-        array_push($printWeather, $setIcon);
-        array_push($printTemp, $setTemp);
-        $setTime = $this->formatTime($newsData['fivedays']['list'][$i]['dt_txt']);
-        array_push($timecheck, $setTime);
+    //   if ($baseDate === $newsData['fivedays']['list'][$i]['dt_txt']) {
+    //     $icon = $this->changePicture($newsData['fivedays']['list'][$i]['weather'][0]['id']);
+    //     $setIcon = $this->Html->image($icon, ['class' => 'mainpageWeathericon']);
+    //     $setTemp = $this->tempformat($newsData['fivedays']['list'][$i]['main']['temp']);
+    //     array_push($printWeather, $setIcon);
+    //     array_push($printTemp, $setTemp);
+    //     $setTime = $this->formatTime($newsData['fivedays']['list'][$i]['dt_txt']);
+    //     array_push($timecheck, $setTime);
 
-        // $viewdata .= $baseDate . "\n";
-        $baseDateTime->modify('+3 hours');
-        $baseDate = $baseDateTime->format('Y-m-d H:i:s');
+    //     // $viewdata .= $baseDate . "\n";
+    //     $baseDateTime->modify('+3 hours');
+    //     $baseDate = $baseDateTime->format('Y-m-d H:i:s');
 
-        //printdate save
-        // if (substr($newsData['fivedays']['list'][$i]['dt_txt'], 11, 2) == '00') {
-        //   array_push($printDate, $this->formatdate($newsData['fivedays']['list'][$i]['dt_txt']));
-        // }
-      }
+    //     //printdate save
+    //     // if (substr($newsData['fivedays']['list'][$i]['dt_txt'], 11, 2) == '00') {
+    //     //   array_push($printDate, $this->formatdate($newsData['fivedays']['list'][$i]['dt_txt']));
+    //     // }
+    //   }
 
-    }
+    // }
    
     // var_dump($timecheck);
 
-    $viewer .= '<p class = "category" id = "weather"><span>天気予報</span></p>' . "\n" .
+  //   $viewer .= '<p class = "category" id = "weather"><span>天気予報</span></p>' . "\n" .
+  //                          '<div class="col-sm-6">' . "\n" .
+  //                          ' <p class="text-center">'. $this->formatdate($nowDate) . $areaname . 'の天気</p>' . "\n" .
+  //                          ' <p class="text-center" >' . $this->Html->image($nowWeatherIcon, ['class' => 'nowWeather']) . '</p>' . "\n" .
+  //                          ' <p class="text-center">' . $nowWeahterTemp . ' ℃</p>' . "\n" .
+  //                          '</div>' . "\n" .
+  //                          '<div class="col-sm-6">' . "\n" .
+  //                          ' <table class="table">' . "\n" .
+  //                          '  <tbody class="table table-striped">' . "\n";
+
+
+  //         for ($i=0; $i < 4; $i++) {
+  //           $viewer .= '   <tr><td class="align-middle">' . $timecheck[$i] . '</td><td>' . $printWeather[$i] .
+  //           '</td><td class="align-middle">' . $printTemp[$i] . '℃</td></tr>' . "\n";
+  //         }
+
+  //         $viewer .= '  </tbody>' . "\n".
+  //                          ' </table>' . "\n".
+  //                          '</div>';
+  //         $link = $this->Html->link('もっと見る', ['controller' => 'News-users', 'action' => 'weatherDetail', $pref, $local]);
+  //         $viewer .= '<p>' . $link . '</p>' . "\n";
+  
+  //   return $viewer;
+  // }
+  $viewer .= '<p class = "category" id = "weather"><span>天気予報</span></p>' . "\n" .
                            '<div class="col-sm-6">' . "\n" .
-                           ' <p class="text-center">'. $this->formatdate($nowDate) . $areaname . 'の天気</p>' . "\n" .
+                           ' <p class="text-center">'. $nowDate . $areaname . 'の天気</p>' . "\n" .
                            ' <p class="text-center" >' . $this->Html->image($nowWeatherIcon, ['class' => 'nowWeather']) . '</p>' . "\n" .
                            ' <p class="text-center">' . $nowWeahterTemp . ' ℃</p>' . "\n" .
                            '</div>' . "\n" .
@@ -132,16 +156,16 @@ class ListupHelper extends Helper {
                            '  <tbody class="table table-striped">' . "\n";
 
 
-          for ($i=0; $i < 4; $i++) {
-            $viewer .= '   <tr><td class="align-middle">' . $timecheck[$i] . '</td><td>' . $printWeather[$i] .
-            '</td><td class="align-middle">' . $printTemp[$i] . '℃</td></tr>' . "\n";
-          }
+          // for ($i=0; $i < 4; $i++) {
+          //   $viewer .= '   <tr><td class="align-middle">' . $timecheck[$i] . '</td><td>' . $printWeather[$i] .
+          //   '</td><td class="align-middle">' . $printTemp[$i] . '℃</td></tr>' . "\n";
+          // }
 
-          $viewer .= '  </tbody>' . "\n".
-                           ' </table>' . "\n".
-                           '</div>';
-          $link = $this->Html->link('もっと見る', ['controller' => 'News-users', 'action' => 'weatherDetail', $pref, $local]);
-          $viewer .= '<p>' . $link . '</p>' . "\n";
+          // $viewer .= '  </tbody>' . "\n".
+          //                  ' </table>' . "\n".
+          //                  '</div>';
+          // $link = $this->Html->link('もっと見る', ['controller' => 'News-users', 'action' => 'weatherDetail', $pref, $local]);
+          // $viewer .= '<p>' . $link . '</p>' . "\n";
   
     return $viewer;
   }

@@ -57,7 +57,7 @@ class WeatherDetail extends Weather {
         for ($i=0; $i < 40; $i++) {
             if ($nowDate <= substr($newsData['list'][$i]['dt_txt'], 0, 10)) {
                 $firstData = intval(substr($newsData['list'][$i]['dt_txt'], 11, 2));
-                print_r($firstData);
+                // print_r($firstData);
                 switch ($firstData) {
                 case '0':
                     $setTime = "03:00:00";
@@ -91,21 +91,30 @@ class WeatherDetail extends Weather {
         }
 
         $returnTime = new \DateTime($nowDate . $setTime);
-        return $returnTime;
+        $baseDate = $returnTime->format('Y-m-d H:i:s');
+        return $baseDate;
     }
 
     // WeatherMain独自のapiデータから必要なデータだけを抽出するfunction
     private function choiceData($baseDate, $newsData, $pageName) {
+        
+        // print_r("basedateは". $baseDate . "です");
         $count = $pageName === "Main" ? 4 : 24;
-        for ($i=0; $i < 40; $i++) {
+        // print_r("カウント数" . $count . "です");
+        
+        for ($i=0; $i < count($newsData['list']); $i++) {
             // baseDateと同じ配列は残し、それ以外は削除する
+            // print_r("for文チェック" . $newsData['list'][$i]['dt_txt'] . "は" . $i . "回目");
             if ($baseDate === $newsData['list'][$i]['dt_txt']) {
-                array_splice($newsData['list'], $i + $count);
+                // print_r("チェックは" . $newsData['list'][$i]['dt_txt'] . "です");
+                for ($j=$i; $j<$i+$count ; $j++) { 
+                    array_push($newsData['list'], $newsData['list'][$j]);
+                }
+                array_splice($newsData['list'], 0, 40);
                 break;    
-            } else {
-                array_splice($newsData['list'], $i, 1);
-            }  
+            }
         }
+
         return $newsData;
     }
 }
