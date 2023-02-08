@@ -35,7 +35,7 @@
         if ($column[$i] === "1") {
           echo $this->Listup->getWeahterNews($newsdata, $prefecture, $local, $pref_city);
         } else {
-          echo $this->Listup->getNewsData($column[$i], $newsdata);
+          echo $this->News->getNewsData($column[$i], $newsdata);
         }
       }
     ?>

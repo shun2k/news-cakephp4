@@ -27,16 +27,12 @@ class ListupHelper extends Helper {
   public function getWeahterNews($data, $pref, $local, $pref_city) {
     $newsData = $data;
 
-    // for ($i=0; $i<40; $i++) {
-    //   echo $newsData['fivedays']['list'][$i]['dt_txt'];
-    // }
-
     $viewer = "";     // return data
     $printDate = [];  // 表示する日付
-    $setTime = "";    // 天気リストの最初の時間を決める
-    $timecheck = [];  // 表示する時間
-    $printWeather = [];   // 表示する天気
-    $printTemp = [];    // 表示する気温
+    // $setTime = "";    // 天気リストの最初の時間を決める
+    // $timecheck = [];  // 表示する時間
+    // $printWeather = [];   // 表示する天気
+    // $printTemp = [];    // 表示する気温
 
     // title -- 地名
     $areaname = $this->changeName($pref, $local, $pref_city);
@@ -88,9 +84,9 @@ class ListupHelper extends Helper {
     // }
 
     // 時間の設定
-    $baseDateTime = new \DateTime($nowDate . $setTime);
-    $baseDate = $baseDateTime->format('Y-m-d H:i:s');
-    array_push($printDate, $this->formatdate($baseDate));
+    // $baseDateTime = new \DateTime($nowDate . $setTime);
+    // $baseDate = $baseDateTime->format('Y-m-d H:i:s');
+    // array_push($printDate, $this->formatdate($baseDate));
     // print_r($baseDateTime);
     // print_r($nowDate);
     // $viewdata = "基準 - $baseDate \n";
@@ -147,7 +143,7 @@ class ListupHelper extends Helper {
   // }
   $viewer .= '<p class = "category" id = "weather"><span>天気予報</span></p>' . "\n" .
                            '<div class="col-sm-6">' . "\n" .
-                           ' <p class="text-center">'. $nowDate . $areaname . 'の天気</p>' . "\n" .
+                           ' <p class="text-center">'. $this->formatdate($nowDate) . $areaname . 'の天気</p>' . "\n" .
                            ' <p class="text-center" >' . $this->Html->image($nowWeatherIcon, ['class' => 'nowWeather']) . '</p>' . "\n" .
                            ' <p class="text-center">' . $nowWeahterTemp . ' ℃</p>' . "\n" .
                            '</div>' . "\n" .
@@ -156,16 +152,19 @@ class ListupHelper extends Helper {
                            '  <tbody class="table table-striped">' . "\n";
 
 
-          // for ($i=0; $i < 4; $i++) {
-          //   $viewer .= '   <tr><td class="align-middle">' . $timecheck[$i] . '</td><td>' . $printWeather[$i] .
-          //   '</td><td class="align-middle">' . $printTemp[$i] . '℃</td></tr>' . "\n";
-          // }
+          for ($i=0; $i < 4; $i++) {
+            $viewer .= '   <tr>
+                            <td class="align-middle">' . $this->formatTime($newsData['fivedays']['list'][$i]['dt_txt']) . '</td>
+                            <td>' . $this->Html->image($this->changePicture($newsData['fivedays']['list'][$i]['weather'][0]['id']), ['class' => 'mainpageWeathericon']) .'</td>
+                            <td class="align-middle">' . $this->tempformat($newsData['fivedays']['list'][$i]['main']['temp']) . '℃</td>
+                          </tr>' . "\n";
+          }
 
-          // $viewer .= '  </tbody>' . "\n".
-          //                  ' </table>' . "\n".
-          //                  '</div>';
-          // $link = $this->Html->link('もっと見る', ['controller' => 'News-users', 'action' => 'weatherDetail', $pref, $local]);
-          // $viewer .= '<p>' . $link . '</p>' . "\n";
+          $viewer .= '  </tbody>' . "\n".
+                           ' </table>' . "\n".
+                           '</div>';
+          $link = $this->Html->link('もっと見る', ['controller' => 'News-users', 'action' => 'weatherDetail', $pref, $local]);
+          $viewer .= '<p>' . $link . '</p>' . "\n";
   
     return $viewer;
   }
@@ -454,16 +453,16 @@ class ListupHelper extends Helper {
   // }
 
   // forecastの日時データを修正
-  public function timeshift($data) {
-    $returnData = $data;
-    for ($i=0; $i < 40; $i++) {
-      $choiceDate = new \Datetime($returnData['fivedays']['list'][$i]['dt_txt']);
-      $choiceDate->modify('+9 hours');
-      $formatDate = $choiceDate->format('Y-m-d H:i:s');
-      $returnData['fivedays']['list'][$i]['dt_txt'] = $formatDate;
-    }
-    return $returnData;
-  }
+  // public function timeshift($data) {
+  //   $returnData = $data;
+  //   for ($i=0; $i < 40; $i++) {
+  //     $choiceDate = new \Datetime($returnData['fivedays']['list'][$i]['dt_txt']);
+  //     $choiceDate->modify('+9 hours');
+  //     $formatDate = $choiceDate->format('Y-m-d H:i:s');
+  //     $returnData['fivedays']['list'][$i]['dt_txt'] = $formatDate;
+  //   }
+  //   return $returnData;
+  // }
 
   // ----- weather_detail ----------
 
