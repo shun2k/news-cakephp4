@@ -86,24 +86,21 @@ class ListupHelper extends Helper {
     $timecheck = [];
     $timeArray = ["03:00:00", "06:00:00", "09:00:00", "12:00:00", "15:00:00", "18:00:00", "21:00:00", "00:00:00"];
    
-    // 現在の情報をセット
+    //-- 現在の情報をセット --
     $icon = $this->changePicture($weatherData['oneday']['weather'][0]['id']);
     $setIcon = $this->Html->image($icon, ['class'=>'weatherpageIcons']);
     array_push($printWeather,  $setIcon);
     array_push($printTemp, $this->tempformat($weatherData['oneday']['main']['temp']));
     array_push($timecheck, "現在");
-
     
-    // 日付表示 -------------
+    //-- 日付表示 --
     $nowDate = new \DateTime(substr($weatherData['fivedays']['list'][0]['dt_txt'], 0, 10));
     array_push($printDate, $this->formatdate($nowDate->format('Y-m-d')));
     for ($i=1; $i<3; $i++) {
       array_push($printDate, $this->formatdate($nowDate->modify("+1 days")->format('Y-m-d')));
     }
-    
-
-    
-// timeArrayの時刻とweatherDataの時刻を比較し、weatherData最初の時間までの各項目を "-"とする。
+       
+    //-- timeArrayの時刻とweatherDataの時刻を比較し、weatherData最初の時間までの各項目を "-"とする --
     for ($i=0; $i < 8; $i++) {
       if ($timeArray[$i] !== substr($weatherData['fivedays']['list'][0]['dt_txt'], 11)) {
         array_push($timecheck, "-");
@@ -114,21 +111,19 @@ class ListupHelper extends Helper {
       }
     }
 
-  // 各データの配列に表示データを入れていく
-  for ($i=0; $i < 24; $i++) {
-    // 時間
-    array_push($timecheck, $this->formatTime($weatherData['fivedays']['list'][$i]['dt_txt']));
-    // 天気のアイコン
-    $icon = $this->changePicture($weatherData['fivedays']['list'][$i]['weather'][0]['id']);
-    $setIcon = $this->Html->image($icon,['class'=>'weatherpageIcons']);
-    array_push($printWeather, $setIcon);
-    // 気温
-    array_push($printTemp, $this->tempformat($weatherData['fivedays']['list'][$i]['main']['temp']));
-  }
-    
+    //-- 各データの配列に表示データを入れていく --
+    for ($i=0; $i < 24; $i++) {
+      // 時間
+      array_push($timecheck, $this->formatTime($weatherData['fivedays']['list'][$i]['dt_txt']));
+      // 天気のアイコン
+      $icon = $this->changePicture($weatherData['fivedays']['list'][$i]['weather'][0]['id']);
+      $setIcon = $this->Html->image($icon,['class'=>'weatherpageIcons']);
+      array_push($printWeather, $setIcon);
+      // 気温
+      array_push($printTemp, $this->tempformat($weatherData['fivedays']['list'][$i]['main']['temp']));
+    }
 
-
-    //表示するためのデータ
+    //--html表示--
     $k = 0;
     for ($i=0; $i < 17; $i += 8) {
 
