@@ -93,7 +93,6 @@ class ListupHelper extends Helper {
     array_push($timecheck, "現在");
     
     //-- 日付表示 -- 
-    // 00:00:00 の場合1日多くなってしまう。修正必要
     $nowDate = date('Y-m-d');
     $baseDate = new \DateTime(substr($weatherData['fivedays']['list'][0]['dt_txt'], 0, 10));
     array_push($printDate, $this->formatdate($nowDate));
