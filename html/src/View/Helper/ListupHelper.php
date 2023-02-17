@@ -39,7 +39,6 @@ class ListupHelper extends Helper {
     $nowWeahterTemp = $this->tempformat($newsData['oneday']['main']['temp']);
 
     // 基準時間の設定(現在の時刻)
-  
     $nowDate = date('Y-m-d');
     array_push($printDate, $nowDate);
 
@@ -93,11 +92,15 @@ class ListupHelper extends Helper {
     array_push($printTemp, $this->tempformat($weatherData['oneday']['main']['temp']));
     array_push($timecheck, "現在");
     
-    //-- 日付表示 --
-    $nowDate = new \DateTime(substr($weatherData['fivedays']['list'][0]['dt_txt'], 0, 10));
-    array_push($printDate, $this->formatdate($nowDate->format('Y-m-d')));
+    //-- 日付表示 -- 
+    $nowDate = date('Y-m-d');
+    $baseDate = new \DateTime(substr($weatherData['fivedays']['list'][0]['dt_txt'], 0, 10));
+    array_push($printDate, $this->formatdate($nowDate));
+    if ($nowDate !== $baseDate->format('Y-m-d')) {
+      array_push($printDate, $this->formatdate($baseDate->format('Y-m-d')));
+    }
     for ($i=1; $i<3; $i++) {
-      array_push($printDate, $this->formatdate($nowDate->modify("+1 days")->format('Y-m-d')));
+      array_push($printDate, $this->formatdate($baseDate->modify("+1 days")->format('Y-m-d')));
     }
        
     //-- timeArrayの時刻とweatherDataの時刻を比較し、weatherData最初の時間までの各項目を "-"とする --
