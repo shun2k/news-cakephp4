@@ -5,6 +5,8 @@ namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\JcodesTable;
 use Cake\TestSuite\TestCase;
+use Cake\TestSuite\Fixture\FixtureStrategyInterface;
+use Cake\TestSuite\Fixture\TransactionStrategy;
 
 /**
  * App\Model\Table\JcodesTable Test Case
@@ -23,9 +25,16 @@ class JcodesTableTest extends TestCase
      *
      * @var array<string>
      */
-    protected $fixtures = [
-        'app.Jcodes',
-    ];
+    protected $fixtures = ['app.Jcodes'];
+
+    /**
+     * Create the fixtures strategy used for this test case.
+     * You can use a base class/trait to change multiple classes.
+     */
+    protected function getFixtureStrategy(): FixtureStrategyInterface
+    {
+        return new TransactionStrategy();
+    }
 
     /**
      * setUp method
@@ -59,6 +68,16 @@ class JcodesTableTest extends TestCase
      */
     public function testValidationDefault(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        // $this->markTestIncomplete('Not implemented yet.');
+        $entityData = $this->Jcodes->get("1");
+        $this->assertNotEmpty($entityData);
+        $this->assertEquals('pref_city', $entityData['name']);
+
     }
+    // public function test_Jcodes(): void
+    // {
+    //     $query = $this->Jcodes->find()->all();
+    //     $this->assertInstanceOf('Cake\ORM\Query', $query);
+
+    // }
 }
