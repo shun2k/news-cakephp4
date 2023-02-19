@@ -15,7 +15,7 @@ class JcodesFixture extends TestFixture
      *
      * @return void
      */
-    public $connection = 'test_Jcodes';
+    public $connection = 'test';
     public function init(): void
     {
         $this->records = [
