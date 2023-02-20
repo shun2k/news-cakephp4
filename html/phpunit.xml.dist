@@ -24,7 +24,7 @@
     </extensions>
 
     <!-- Ignore vendor tests in code coverage reports -->
-    <filter>
+    <!-- <filter>
         <whitelist>
             <directory suffix=".php">src/</directory>
             <directory suffix=".php">plugins/*/src/</directory>
@@ -32,5 +32,12 @@
                 <file>src/Console/Installer.php</file>
             </exclude>
         </whitelist>
-    </filter>
+    </filter> -->
+
+    <coverage>
+        <include>
+            <directory suffix=".php">src/</directory>
+            <directory suffix=".php">plugins/*/src/</directory>
+        </include>
+    </coverage>
 </phpunit>
