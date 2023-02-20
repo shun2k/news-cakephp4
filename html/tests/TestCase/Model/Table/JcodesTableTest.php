@@ -74,10 +74,5 @@ class JcodesTableTest extends TestCase
         $this->assertEquals('pref_city', $entityData['name']);
 
     }
-    // public function test_Jcodes(): void
-    // {
-    //     $query = $this->Jcodes->find()->all();
-    //     $this->assertInstanceOf('Cake\ORM\Query', $query);
-
-    // }
+   
 }
