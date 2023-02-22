@@ -42,4 +42,11 @@ class NewsHelperTest extends TestCase
 
         parent::tearDown();
     }
+
+    public function testNewsHelper(): void 
+    {
+        $nameChecker = $this->News->changeCategories('business');
+        $this->assertEquals('ビジネス', $nameChecker);
+
+    }
 }
