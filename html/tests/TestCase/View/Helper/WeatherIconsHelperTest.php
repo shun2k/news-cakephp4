@@ -12,18 +12,8 @@ use Cake\View\View;
  */
 class WeatherIconsHelperTest extends TestCase
 {
-    /**
-     * Test subject
-     *
-     * @var \App\View\Helper\WeatherIconsHelper
-     */
     protected $WeatherIcons;
 
-    /**
-     * setUp method
-     *
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -31,15 +21,16 @@ class WeatherIconsHelperTest extends TestCase
         $this->WeatherIcons = new WeatherIconsHelper($view);
     }
 
-    /**
-     * tearDown method
-     *
-     * @return void
-     */
     protected function tearDown(): void
     {
         unset($this->WeatherIcons);
 
         parent::tearDown();
+    }
+
+    public function test_Icons(): void
+    {
+        $picture = $this->WeatherIcons->changePicture("320");
+        $this->assertEquals("drizzle", $picture);
     }
 }
