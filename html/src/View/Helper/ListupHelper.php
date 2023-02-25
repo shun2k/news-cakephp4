@@ -253,7 +253,7 @@ class ListupHelper extends Helper {
         break;
 
       default:
-        // code...
+        return "non";
         break;
     }
   }
@@ -300,8 +300,6 @@ class ListupHelper extends Helper {
   // 都道府県ー市町村 表示
   public function prefCityList($pref, $jdata) {
     $returnData = "";
-    // $return = $this->Html->image('mapj.png',['id' => 'map', 'alt' => 'map',
-    // 'usemap' => '#example1', 'width' => '1000', 'height' => '750'/*,'style'=>'display:none;'*/]);
     $counter = count($jdata[(int)$this->prefNumber[$pref]][sprintf("%02d", (int)$this->prefNumber[$pref] + 1)]['city']);
     for ($i=0; $i<$counter; $i++) {
       $returnData .= "<tr><td>" . $this->Html->link($jdata[(int)$this->prefNumber[$pref]][sprintf("%02d", (int)$this->prefNumber[$pref] + 1)]['city'][$i]['name'], 
@@ -309,8 +307,6 @@ class ListupHelper extends Helper {
       $jdata[(int)$this->prefNumber[$pref]][sprintf("%02d", (int)$this->prefNumber[$pref] + 1)]['city'][$i]['en_city']]) . "</td></tr>";
     }
     return $returnData;
-    // return gettype($counter);
-    // 
   }
 
   // 都道府県選択　- 画像表示
