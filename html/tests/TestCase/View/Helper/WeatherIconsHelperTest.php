@@ -20,7 +20,7 @@ class WeatherIconsHelperTest extends TestCase
         $view = new View();
         $this->WeatherIcons = new WeatherIconsHelper($view);
     }
-    
+
     protected function tearDown(): void
     {
         unset($this->WeatherIcons);
@@ -28,9 +28,9 @@ class WeatherIconsHelperTest extends TestCase
         parent::tearDown();
     }
 
-    public function testIcons(): void
+    public function test_Icons(): void
     {
-        $picture = $this->WeatherIcons->changePicture("333");
+        $picture = $this->WeatherIcons->changePicture("320");
         $this->assertEquals("drizzle", $picture);
     }
 }
