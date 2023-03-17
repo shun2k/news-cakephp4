@@ -338,6 +338,7 @@ class ListupHelper extends Helper {
   // 都道府県 日本語表示
   public function prefName($pref, $jdata) {
     $returnData = $jdata[(int)$this->prefNumber[$pref]][sprintf("%02d", (int)$this->prefNumber[$pref] + 1)]['pref'];
+    // var_dump($returnData);
     return $returnData;
   }
 

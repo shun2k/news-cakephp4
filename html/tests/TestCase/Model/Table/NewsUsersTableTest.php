@@ -101,6 +101,22 @@ class NewsUsersTableTest extends TestCase
                 'local' => 'Osaka-shi',
                 'column_order' => '13625',
                 'email' => 'Sato@gmail.com',
+            ],
+            [
+                'id' => 4,
+                'name' => 'Kato',
+                'prefecture' => 'Kyoto',
+                'local' => 'Kyoto',
+                'column_order' => '1362',
+                'email' => 'kato@gmail.com',                
+            ],
+            [
+                'id' => 5,
+                'name' => '花田',
+                'prefecture' => 'Okinawa-ken',
+                'local' => 'Naha',
+                'column_order' => '2168',
+                'email' => 'hanada@ii.com',
             ]
         ];
         $this->assertEquals($expected, $result);
