@@ -72,6 +72,8 @@ class JcodesTableTest extends TestCase
         $entityData = $this->Jcodes->get("1");
         $this->assertNotEmpty($entityData);
         $this->assertEquals('pref_city', $entityData['name']);
+        // var_dump(gettype(json_decode($entityData['json'])));
+        // var_dump($entityData['json']);
 
     }
    

@@ -50,6 +50,28 @@ class NewsUsersFixture extends TestFixture
                 'password' => '1',
                 'created' => '2023-02-11 05:35:21',
                 'modified' => '2023-02-11 05:35:21',
+            ],
+            [
+                'id' => 4,
+                'name' => 'Kato',
+                'prefecture' => 'Kyoto',
+                'local' => 'Kyoto',
+                'column_order' => '1362',
+                'email' => 'kato@gmail.com',
+                'password' => '1',
+                'created' => '2023-02-11 05:35:21',
+                'modified' => '2023-02-11 05:35:21',
+            ],
+            [
+                'id' => 5,
+                'name' => '花田',
+                'prefecture' => 'Okinawa-ken',
+                'local' => 'Naha',
+                'column_order' => '2168',
+                'email' => 'hanada@ii.com',
+                'password' => '$2y$10$vmmJqTYY9M3V6ZMd5BLps.5LlSl5ZrxFe0EzNtU0OjeYMctBv22YS',
+                'created' => '2023-02-11 05:35:21',
+                'modified' => '2023-02-11 05:35:21',
             ]
         ];
         parent::init();

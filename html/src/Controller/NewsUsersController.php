@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Model\GetInfo\GetNews;
 use Authentication\Identity;
 use Cake\ORM\TableRegistry;
+use Error;
 
 /**
  * NewsUsers Controller
@@ -79,7 +80,7 @@ class NewsUsersController extends AppController
         // ユーザーが submit 後、認証失敗した場合は、エラーを表示します
         if ($this->request->is('post') && !$result->isValid()) {
             $this->Flash->error(__('Invalid username or password'));
-            print_r($result);
+            // print_r($result);
         }
     }
 
@@ -102,14 +103,20 @@ class NewsUsersController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index($id = null)
+    public function index()
     {
 
         $this->viewBuilder()->setLayout('set');
         // jsonコード　地名変換用
         $this->Jcodes = TableRegistry::getTableLocator()->get('Jcodes');
         $entityData = $this->Jcodes->get("1");
-        $pref_city = $entityData['json'];
+        
+        if (gettype($entityData['json']) === "string") {
+          $pref_city = json_decode($entityData['json'], true); // associativeをtrueとすることで連想配列形式にする
+          // var_dump($pref_city);
+        } else {
+          $pref_city = $entityData['json'];
+        }
 
         $this->set('pref_city',$pref_city);
         $this->set('username', $this->username);
@@ -120,6 +127,8 @@ class NewsUsersController extends AppController
         $this->set('person', $person);
         $this->set('header', ['pageTitle'=>'My News', 'subtitle'=>'個人設定']);
         $this->set('footer', ['copyright'=>'Tikara']);
+
+        // throw new \Exception("エラー");
 
     }
 
@@ -381,6 +390,7 @@ class NewsUsersController extends AppController
         $this->set('logintag', $this->logintag);
         $this->set('header', ['subtitle'=>'天気予報']);
         $this->set('footer', ['copyright'=>'Tikara']);
+        
     }
 
     // Main method  ニュース一覧
