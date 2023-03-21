@@ -6,6 +6,8 @@ namespace App\Test\TestCase\Controller;
 use App\Controller\JcodesController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
+use Cake\TestSuite\Fixture\FixtureStrategyInterface;
+use Cake\TestSuite\Fixture\TransactionStrategy;
 
 /**
  * App\Controller\JcodesController Test Case
@@ -25,6 +27,11 @@ class JcodesControllerTest extends TestCase
         'app.Jcodes',
     ];
 
+    protected function getFixtureStrategy(): FixtureStrategyInterface
+    {
+        return new TransactionStrategy();
+    }
+
     /**
      * Test index method
      *
@@ -33,7 +40,8 @@ class JcodesControllerTest extends TestCase
      */
     public function testIndex(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get('/jcodes/index');
+        $this->assertResponseSuccess();
     }
 
     /**
@@ -44,7 +52,8 @@ class JcodesControllerTest extends TestCase
      */
     public function testView(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get('/jcodes/view');
+        $this->assertResponseSuccess();
     }
 
     /**
@@ -55,7 +64,8 @@ class JcodesControllerTest extends TestCase
      */
     public function testAdd(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get('/jcodes/add');
+        $this->assertResponseSuccess();
     }
 
     /**
@@ -66,7 +76,8 @@ class JcodesControllerTest extends TestCase
      */
     public function testEdit(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get('/jcodes/edit');
+        $this->assertResponseSuccess();
     }
 
     /**
@@ -77,6 +88,7 @@ class JcodesControllerTest extends TestCase
      */
     public function testDelete(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get('/jcodes/delete');
+        $this->assertResponseSuccess();
     }
 }

@@ -10,7 +10,7 @@ use Cake\TestSuite\Fixture\FixtureStrategyInterface;
 use Cake\TestSuite\Fixture\TransactionStrategy;
 use Cake\ORM\TableRegistry;
 
-session_start();
+session_start();    // IntegrationTestTraitのsessionを利用するため
 /**
  * App\Controller\NewsUsersController Test Case
  *
@@ -83,17 +83,6 @@ class NewsUsersControllerTest extends TestCase
     }
 
     /**
-     * Test view method
-     *
-     * @return void
-     * @uses \App\Controller\NewsUsersController::view()
-     */
-    public function testView(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
      * Test add method
      *
      * @return void
@@ -101,7 +90,8 @@ class NewsUsersControllerTest extends TestCase
      */
     public function testAdd(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get('/news-users/add');
+        $this->assertResponseOk();
     }
 
     /**
@@ -112,7 +102,9 @@ class NewsUsersControllerTest extends TestCase
      */
     public function testEdit(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->login();
+        $this->get('/news-users/edit/5');
+        $this->assertResponseOk();
     }
 
     /**
@@ -123,6 +115,30 @@ class NewsUsersControllerTest extends TestCase
      */
     public function testDelete(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->login();
+        $this->get('/news-users/delete/5');
+
+        $users = TableRegistry::getTableLocator()->get('NewsUsers');
+        $user = $users->find('all')->all()->last();
+
+        $this->assertNotEquals("5", $user['id']);
+    }
+
+    public function testMain(): void
+    {
+        $this->get('/news-users/main');
+        $this->assertResponseOk();
+    }
+
+    public function testNewslist(): void
+    {
+        $this->get('/news-users/newslist/business');
+        $this->assertResponseOk();
+    }
+
+    public function testWeatherDetail(): void
+    {
+        $this->get('/news-users/weather-detail/Tokyo');
+        $this->assertResponseOk();
     }
 }
