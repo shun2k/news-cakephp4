@@ -21,9 +21,6 @@
       </div>
     </div>
   </nav>
-  <!-- <header class="row">
-    <h1><?= $title ?></h1>
-  </header> -->
 
   <div class="row">
     <p class="text-center h1"><?= $this->Listup->changeName($prefecture, $local, $pref_city) ?>の天気</p>

@@ -379,17 +379,20 @@ class NewsUsersController extends AppController
      */
     public function delete($id = null)
     {
-        $person = $this->NewsUsers->get($id);
-        if ($this->NewsUsers->delete($person)) {
-            $this->set('data', "削除完了");
-        } else {
-            $this->set('data', "削除失敗");
-        }
-        $this->set('username', $this->username);
-        $this->set('linkAction', $this->linkAction);
-        $this->set('logintag', $this->logintag);
-        $this->set('header', ['subtitle'=>'天気予報']);
-        $this->set('footer', ['copyright'=>'Tikara']);
+      $this->viewBuilder()->setLayout('set');
+      $person = $this->NewsUsers->get($id);
+      if ($this->NewsUsers->delete($person)) {
+          $this->set('data', "削除完了");
+          $this->Authentication->logout();
+          $this->session->destroy();
+      } else {
+          $this->set('data', "削除失敗");
+      }
+      $this->set('username', $this->username);
+      $this->set('linkAction', $this->linkAction);
+      $this->set('logintag', $this->logintag);
+      $this->set('header', ['pageTitle'=>'My News', 'subtitle'=>'アカウント削除']);
+      $this->set('footer', ['copyright'=>'Tikara']);
         
     }
 
@@ -416,7 +419,12 @@ class NewsUsersController extends AppController
         // 都道府県、市町村のjsonデータを取る（Mysql)
         $this->Jcodes = TableRegistry::getTableLocator()->get('Jcodes');
         $entityData = $this->Jcodes->get("1");
-        $pref_city = $entityData['json'];
+        if (gettype($entityData['json']) === "string") {
+          $pref_city = json_decode($entityData['json'], true); // associativeをtrueとすることで連想配列形式にする
+          // var_dump($pref_city);
+        } else {
+          $pref_city = $entityData['json'];
+        }
 
         // $data = $returndata['entertainment']['articles'][0]['title'];
     
@@ -481,7 +489,12 @@ class NewsUsersController extends AppController
         // 都道府県、市町村のjsonデータを取る（Mysql)
         $this->Jcodes = TableRegistry::getTableLocator()->get('Jcodes');
         $entityData = $this->Jcodes->get("1");
-        $pref_city = $entityData['json'];
+        if (gettype($entityData['json']) === "string") {
+          $pref_city = json_decode($entityData['json'], true); // associativeをtrueとすることで連想配列形式にする
+          // var_dump($pref_city);
+        } else {
+          $pref_city = $entityData['json'];
+        }
        
 
         // ログイン情報
