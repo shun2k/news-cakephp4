@@ -19,5 +19,5 @@ jobs:
       - name: Setup MySQL
         run: mysql -u root -p root -e 'CREATE DATABASE test;'
       
-      - run: ls -la
+      - run: ls -l
 
