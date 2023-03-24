@@ -14,16 +14,16 @@ jobs:
         context: .
         push: true
         tags: user/app:${{ github.sha }}
-    - name: Install Docker Compose
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y docker-compose
-    - name: Start the Docker Compose stack
-      run: |
-        docker-compose up -d
-    - name: Stop the Docker Compose stack
-      run: |
-        docker-compose down
+    # - name: Install Docker Compose
+    #   run: |
+    #     sudo apt-get update
+    #     sudo apt-get install -y docker-compose
+    # - name: Start the Docker Compose stack
+    #   run: |
+    #     docker-compose up -d
+    # - name: Stop the Docker Compose stack
+    #   run: |
+    #     docker-compose down
 
 
   
