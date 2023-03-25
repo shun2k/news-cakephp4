@@ -16,6 +16,7 @@ jobs:
     - name: Start Docker Compose
       run: |
         docker-compose up -d
+    # githubに環境変数を入れて再度確認
 
 
   
