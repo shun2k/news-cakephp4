@@ -12,5 +12,31 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y docker-compose
+    # ここまでパス
+    - name: Start Docker Compose
+      env:
+        WEB_PORT: ${{ secret.WEB_PORT }}
+        DB_NAME: ${{ secret.DB_NAME }}
+        DB_USER: ${{ secret.DB_USER }}
+        DB_PASS=: ${{ secret.DB_PASS }}
+        DB_PORT: ${{ secret.DB_PORT }}
+        
+        PMA_USER: ${{ secret.PMA_USER }}
+        PMA_PASS: ${{ secret.PMA_PASS }}
+        PMA_PORT: ${{ secret.PMA_PORT }}
+
+        DB_TEST_NAME: ${{ secret.DB_TEST_NAME }}
+        DB_TEST_USER: ${{ secret.DB_TEST_USER }}
+        DB_TEST_PASS: ${{ secret.DB_TEST_PASS }}
+        DB_TEST_PORT: ${{ secret.DB_TEST_PORT }}
+
+        PMA_TEST_USER: ${{ secret.PMA_TEST_USER }}
+        PMA_TEST_PASS: ${{ secret.PMA_TEST_PASS }}
+        PMA_TEST_PORT: ${{ secret.PMA_TEST_PORT }}
+
+      run: |
+        docker-compose up -d
+    # githubに環境変数を入れて再度確認
+
 
   
