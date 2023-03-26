@@ -56,7 +56,7 @@ jobs:
         PMA_TEST_PASS: ${{ secrets.PMA_TEST_PASS }}
         PMA_TEST_PORT: ${{ secrets.PMA_TEST_PORT }}
       run:  |
-        docker-compose exec news_cakephp4-php-1 bash -c "php vender/bin/phpunit"
+        docker exec -it news_cakephp4-php-1 bash -c "vendor/bin/phpunit"
     - name: Stop the Docker Compose stack
       env:
         WEB_PORT: ${{ secrets.WEB_PORT }}
