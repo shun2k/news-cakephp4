@@ -35,7 +35,7 @@ jobs:
 
       run: |
         docker-compose up -d
-        docker exec news_cakephp4_php_1 bash -c "ls -la"  
+        docker exec news_cakephp4_php_1 bash -c "php vendor/bin/phpunit"  
         docker-compose down       
     # - name: Stop the Docker Compose stack
     #   env:
