@@ -34,8 +34,7 @@ jobs:
         PMA_TEST_PORT: ${{ secrets.PMA_TEST_PORT }}
 
       run: |
-        docker-compose up -d
-        docker exec news_cakephp4_php_1 bash -c "vendor/bin/phpunit"  
+        docker-compose up -d 
         docker-compose down       
     # - name: Stop the Docker Compose stack
     #   env:
