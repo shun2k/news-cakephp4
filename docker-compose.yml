@@ -12,6 +12,7 @@ services:
       - db
     volumes:
       - ./:/var/www
+      - ./vendor/bin:/var/www/html/vendor/bin
     ports:
       - ${WEB_PORT}:80
 
