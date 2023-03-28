@@ -33,8 +33,18 @@ jobs:
         PMA_TEST_PASS: ${{ secrets.PMA_TEST_PASS }}
         PMA_TEST_PORT: ${{ secrets.PMA_TEST_PORT }}
 
+        APP_DEFAULT_LOCALE: ${{ secrets.APP_DEFAULT_LOCALE }}
+        APP_DEFAULT_TIMEZONE: ${{ secrets.APP_DEFAULT_TIMEZONE }}
+
+        OPENWEATHER_ONEDAY_URL: ${{ secrets.OPENWEATHER_ONEDAY_URL }}
+        OPENWEATHER_FIVEDAYS_URL: ${{ secrets.OPENWEATHER_FIVEDAYS_URL }}
+        OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
+        NEWSAPI_URL: ${{ secrets.NEWSAPI_URL }}
+        NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+
       run: |
         docker-compose up -d 
+        docker exec news_cakephp4_php_1 bash -c "php vendor/bin/phpunit" 
         docker-compose down       
     # - name: Stop the Docker Compose stack
     #   env:
