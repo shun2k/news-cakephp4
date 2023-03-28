@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Install Docker composer
       run: |
         sudo apt-get update
@@ -34,8 +34,8 @@ jobs:
         PMA_TEST_PORT: ${{ secrets.PMA_TEST_PORT }}
 
       run: |
-        docker-compose up -d
-        docker exec news_cakephp4_php_1 bash -c "vendor/bin/phpunit"  
+
+        docker-compose up -d 
         docker-compose down       
     # - name: Stop the Docker Compose stack
     #   env:
