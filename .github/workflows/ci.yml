@@ -33,17 +33,17 @@ jobs:
         PMA_TEST_PASS: ${{ secrets.PMA_TEST_PASS }}
         PMA_TEST_PORT: ${{ secrets.PMA_TEST_PORT }}
 
-        APP_NAME: ${{ variables.APP_NAME }}
-        DEBUG: ${{ variables.DEBUG }}
-        APP_ENCODING: ${{ variables.APP_ENCODING }}
-        APP_DEFAULT_LOCALE: ${{ variables.APP_DEFAULT_LOCALE }}
-        APP_DEFAULT_TIMEZONE: ${{ variables.APP_DEFAULT_TIMEZONE }}
+        APP_NAME: ${{ vars.APP_NAME }}
+        DEBUG: ${{ vars.DEBUG }}
+        APP_ENCODING: ${{ vars.APP_ENCODING }}
+        APP_DEFAULT_LOCALE: ${{ vars.APP_DEFAULT_LOCALE }}
+        APP_DEFAULT_TIMEZONE: ${{ vars.APP_DEFAULT_TIMEZONE }}
         SECURITY_SALT: ${{ secrets.SECURITY_SALT }}
 
-        OPENWEATHER_ONEDAY_URL: ${{ variables.OPENWEATHER_ONEDAY_URL }}
-        OPENWEATHER_FIVEDAYS_URL: ${{ variables.OPENWEATHER_FIVEDAYS_URL }}
+        OPENWEATHER_ONEDAY_URL: ${{ vars.OPENWEATHER_ONEDAY_URL }}
+        OPENWEATHER_FIVEDAYS_URL: ${{ vars.OPENWEATHER_FIVEDAYS_URL }}
         OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
-        NEWSAPI_URL: ${{ variables.NEWSAPI_URL }}
+        NEWSAPI_URL: ${{ vars.NEWSAPI_URL }}
         NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
 
       run: |
