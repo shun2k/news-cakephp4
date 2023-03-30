@@ -51,6 +51,9 @@ jobs:
       run: |
         docker-compose up -d
         ls -la
+      
+    - name: Run PHPUnit
+      run: |
         docker exec news_cakephp4_php_1 bash
         ls -la
         pwd
