@@ -50,7 +50,7 @@ jobs:
 
       run: |
         docker-compose up -d --build
-        docker exec news_cakephp4_php_1 ls -la
+        docker exec news_cakephp4_php_1 php vendor/bin/phpunit
         docker-compose down
       
     # - name: Run PHPUnit
