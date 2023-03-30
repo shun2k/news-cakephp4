@@ -21,8 +21,7 @@ RUN apt-get update \
     && apt-get install -y unzip \
     && apt-get install -y libicu-dev \
     && docker-php-ext-install pdo_mysql mysqli mbstring intl \
-    && a2enmod rewrite \
-    && composer require --dev phpunit/phpunit
+    && a2enmod rewrite 
 
     
     
