@@ -49,14 +49,15 @@ jobs:
         NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
 
       run: |
-        docker-compose up -d
-        ls -la
+        docker-compose up -d --build
+        docker exec news_cakephp4_php_1 ./vendor/bin/phpunit
+        docker-compose down
       
-    - name: Run PHPUnit
-      run: |
-        docker exec news_cakephp4_php_1 bash
-        ls -la
-        pwd
+    # - name: Run PHPUnit
+    #   run: docker exec news_cakephp4_php_1 ./vendor/bin/phpunit
+    
+    # - name: Stop containers
+    #   run: docker-compose down
 
 
     # - name: Run PHPUnit
