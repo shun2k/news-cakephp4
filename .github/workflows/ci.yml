@@ -48,7 +48,8 @@ jobs:
 
       run: |
 
-        docker-compose up -d 
+        docker-compose up -d
+        vendor/bin/phpunit 
         docker-compose down       
 
   

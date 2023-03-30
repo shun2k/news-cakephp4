@@ -16,37 +16,37 @@ jobs:
           extensions: intl
           coverage: none
 
-      - name: Run PHPUnit
-        env:
-          WEB_PORT: ${{ secrets.WEB_PORT }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASS=: ${{ secrets.DB_PASS }}
-          DB_PORT: ${{ secrets.DB_PORT }}
+      # - name: Run PHPUnit
+      #   env:
+      #     WEB_PORT: ${{ secrets.WEB_PORT }}
+      #     DB_NAME: ${{ secrets.DB_NAME }}
+      #     DB_USER: ${{ secrets.DB_USER }}
+      #     DB_PASS=: ${{ secrets.DB_PASS }}
+      #     DB_PORT: ${{ secrets.DB_PORT }}
           
-          PMA_USER: ${{ secrets.PMA_USER }}
-          PMA_PASS: ${{ secrets.PMA_PASS }}
-          PMA_PORT: ${{ secrets.PMA_PORT }}
+      #     PMA_USER: ${{ secrets.PMA_USER }}
+      #     PMA_PASS: ${{ secrets.PMA_PASS }}
+      #     PMA_PORT: ${{ secrets.PMA_PORT }}
 
-          DB_TEST_NAME: ${{ secrets.DB_TEST_NAME }}
-          DB_TEST_USER: ${{ secrets.DB_TEST_USER }}
-          DB_TEST_PASS: ${{ secrets.DB_TEST_PASS }}
-          DB_TEST_PORT: ${{ secrets.DB_TEST_PORT }}
+      #     DB_TEST_NAME: ${{ secrets.DB_TEST_NAME }}
+      #     DB_TEST_USER: ${{ secrets.DB_TEST_USER }}
+      #     DB_TEST_PASS: ${{ secrets.DB_TEST_PASS }}
+      #     DB_TEST_PORT: ${{ secrets.DB_TEST_PORT }}
 
-          PMA_TEST_USER: ${{ secrets.PMA_TEST_USER }}
-          PMA_TEST_PASS: ${{ secrets.PMA_TEST_PASS }}
-          PMA_TEST_PORT: ${{ secrets.PMA_TEST_PORT }}
+      #     PMA_TEST_USER: ${{ secrets.PMA_TEST_USER }}
+      #     PMA_TEST_PASS: ${{ secrets.PMA_TEST_PASS }}
+      #     PMA_TEST_PORT: ${{ secrets.PMA_TEST_PORT }}
 
-          APP_NAME: ${{ vars.APP_NAME }}
-          DEBUG: ${{ vars.DEBUG }}
-          APP_ENCODING: ${{ vars.APP_ENCODING }}
-          APP_DEFAULT_LOCALE: ${{ vars.APP_DEFAULT_LOCALE }}
-          APP_DEFAULT_TIMEZONE: ${{ vars.APP_DEFAULT_TIMEZONE }}
-          SECURITY_SALT: ${{ secrets.SECURITY_SALT }}
+      #     APP_NAME: ${{ vars.APP_NAME }}
+      #     DEBUG: ${{ vars.DEBUG }}
+      #     APP_ENCODING: ${{ vars.APP_ENCODING }}
+      #     APP_DEFAULT_LOCALE: ${{ vars.APP_DEFAULT_LOCALE }}
+      #     APP_DEFAULT_TIMEZONE: ${{ vars.APP_DEFAULT_TIMEZONE }}
+      #     SECURITY_SALT: ${{ secrets.SECURITY_SALT }}
 
-          OPENWEATHER_ONEDAY_URL: ${{ vars.OPENWEATHER_ONEDAY_URL }}
-          OPENWEATHER_FIVEDAYS_URL: ${{ vars.OPENWEATHER_FIVEDAYS_URL }}
-          OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
-          NEWSAPI_URL: ${{ vars.NEWSAPI_URL }}
-          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
-        run: vendor/bin/phpunit
+      #     OPENWEATHER_ONEDAY_URL: ${{ vars.OPENWEATHER_ONEDAY_URL }}
+      #     OPENWEATHER_FIVEDAYS_URL: ${{ vars.OPENWEATHER_FIVEDAYS_URL }}
+      #     OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
+      #     NEWSAPI_URL: ${{ vars.NEWSAPI_URL }}
+      #     NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+      #   run: vendor/bin/phpunit
