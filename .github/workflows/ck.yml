@@ -16,4 +16,6 @@ jobs:
           extensions: intl
           coverage: none
       
-      - run: ls -l
+      
+      - name: Run ls -la
+        run: ls -la
