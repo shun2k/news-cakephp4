@@ -50,7 +50,7 @@ jobs:
 
       run: |
         docker-compose up -d
-        docker-compose ps
+        ls -la
         docker exec news_cakephp4_php_1 bash
         ls -la
         pwd
