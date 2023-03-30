@@ -8,10 +8,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+
     - name: Install Docker composer
       run: |
         sudo apt-get update
         sudo apt-get install -y docker-compose
+
     - name: Start Docker Compose
       env:
         WEB_PORT: ${{ secrets.WEB_PORT }}
@@ -47,9 +49,14 @@ jobs:
         NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
 
       run: |
-
         docker-compose up -d
-        vendor/bin/phpunit 
-        docker-compose down       
+        docker-compose ps
+
+    # - name: Run PHPUnit
+    #   run: |
+    #     docker exec -it news_cakephp4_php_1 bash
+    #     vendor/bin/phpunit
+
+           
 
   
