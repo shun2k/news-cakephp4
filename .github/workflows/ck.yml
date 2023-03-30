@@ -49,5 +49,4 @@ jobs:
           OPENWEATHER_KEY: ${{ secrets.OPENWEATHER_KEY }}
           NEWSAPI_URL: ${{ vars.NEWSAPI_URL }}
           NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
-        working-directory: ./app
         run: vendor/bin/phpunit
