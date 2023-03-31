@@ -51,7 +51,7 @@ jobs:
       run: |
         docker-compose up -d --build
         docker exec news_cakephp4_php_1 composer update
-        docker exec news_cakephp4_php_1 php -r 'echo env("NEWSAPI_URL");'
+        docker exec news_cakephp4_php_1 vendor/bin/phpunit
         docker-compose down
       
     # - name: Run PHPUnit
