@@ -50,7 +50,7 @@ jobs:
 
       run: |
         docker-compose up -d --build
-        composer --version
+        docker exec news_cakephp4_php_1 composer update
         docker-compose down
       
     # - name: Run PHPUnit
