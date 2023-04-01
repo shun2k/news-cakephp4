@@ -5,17 +5,7 @@ on: pull_request
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Install Docker composer
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y docker-compose
-
-    - name: Start Docker Compose
-      env:
+    env:
         WEB_PORT: ${{ secrets.WEB_PORT }}
         DB_NAME: ${{ secrets.DB_NAME }}
         DB_USER: ${{ secrets.DB_USER }}
@@ -48,11 +38,25 @@ jobs:
         NEWSAPI_URL: ${{ vars.NEWSAPI_URL }}
         NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
 
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Docker composer
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker-compose
+
+    - name: Start Docker Compose
       run: |
         docker-compose -f docker-compose_prod.yml up -d --build
         docker exec news_cakephp4_php_1 composer update
-        docker exec news_cakephp4_php_1 vendor/bin/phpunit
-        docker-compose down
+
+    - name: Start PHPUnit     
+      run: docker exec news_cakephp4_php_1 vendor/bin/phpunit
+    
+    - name: Down docker-compose
+      run: docker-compose down
       
     # - name: Run PHPUnit
     #   run: docker exec news_cakephp4_php_1 ./vendor/bin/phpunit
