@@ -57,6 +57,18 @@ jobs:
     
     - name: Down docker-compose
       run: docker-compose down
+  
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v3
+        - uses: akhileshns/heroku-deploy@v3.12.14
+          with:
+            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+            heroku_app_name: 'news-cakephp4'
+            heroku_email: ${{secrets.HEROKU_EMAIL}} 
+
       
     # - name: Run PHPUnit
     #   run: docker exec news_cakephp4_php_1 ./vendor/bin/phpunit
