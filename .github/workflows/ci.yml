@@ -31,6 +31,7 @@ jobs:
         APP_DEFAULT_LOCALE: ${{ vars.APP_DEFAULT_LOCALE }}
         APP_DEFAULT_TIMEZONE: ${{ vars.APP_DEFAULT_TIMEZONE }}
         SECURITY_SALT: ${{ secrets.SECURITY_SALT }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
         OPENWEATHER_ONEDAY_URL: ${{ vars.OPENWEATHER_ONEDAY_URL }}
         OPENWEATHER_FIVEDAYS_URL: ${{ vars.OPENWEATHER_FIVEDAYS_URL }}
@@ -57,6 +58,18 @@ jobs:
     
     - name: Down docker-compose
       run: docker-compose down
+  
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v3
+        - uses: akhileshns/heroku-deploy@v3.12.14
+          with:
+            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+            heroku_app_name: 'news-cakephp4'
+            heroku_email: ${{secrets.HEROKU_EMAIL}} 
+
       
     # - name: Run PHPUnit
     #   run: docker exec news_cakephp4_php_1 ./vendor/bin/phpunit
