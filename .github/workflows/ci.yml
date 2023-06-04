@@ -103,14 +103,11 @@ jobs:
             heroku_api_key: ${{secrets.HEROKU_API_KEY}}
             heroku_app_name: 'news-cakephp4'
             heroku_email: ${{secrets.HEROKU_EMAIL}} 
-            appdir: "html"
         - run: |
             sudo apt-get update
             sudo apt-get install -y docker-compose
             docker-compose -f docker-compose_prod.yml up -d --build
             docker exec news_cakephp4_php_1 composer update
-        
-  
     
 
       
