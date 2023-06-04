@@ -96,8 +96,10 @@ jobs:
       NEWSAPI_URL: ${{ vars.NEWSAPI_URL }}
       NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
     steps:
-        - uses: actions/checkout@v3
-        - run: |
+        - name: checkout code
+          uses: actions/checkout@v3
+        - name: docker-compose setup
+          run: |
             sudo apt-get update
             sudo apt-get install -y docker-compose
             docker-compose -f docker-compose_prod.yml up -d --build
