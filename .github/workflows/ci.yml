@@ -56,8 +56,8 @@ jobs:
     - name: Start PHPUnit     
       run: docker exec news_cakephp4_php_1 vendor/bin/phpunit
     
-    # - name: Down docker-compose
-    #   run: docker-compose down
+    - name: Down docker-compose
+      run: docker-compose down
   
   deploy:
     needs: build
