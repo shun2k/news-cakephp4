@@ -1,4 +1,4 @@
-name: CK
+name: deploy
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     env:
       WEB_PORT: ${{ secrets.WEB_PORT }}
@@ -42,18 +42,24 @@ jobs:
       NEWSAPI_URL: ${{ vars.NEWSAPI_URL }}
       NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
     steps:
-        - name: checkout code
+        - name: Checkout repository
           uses: actions/checkout@v2
-        - uses: akhileshns/heroku-deploy@v3.12.14
-          with:
-            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-            heroku_app_name: 'news-cakephp4'
-            heroku_email: ${{secrets.HEROKU_EMAIL}} 
-        - run: |
+        
+        - name: Set up PHP
+          run: |
             sudo apt-get update
             sudo apt-get install -y docker-compose
             docker-compose -f docker-compose_prod.yml up -d --build
             docker exec news_cakephp4_php_1 composer update
+         
+        - name: Set up Heroku
+          uses: akhileshns/heroku-deploy@v3.12.14
+          with:
+            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+            heroku_app_name: 'news-cakephp4'
+            heroku_email: ${{secrets.HEROKU_EMAIL}} 
+            usedocker: true
+        
   
   # on: pull_request
 
