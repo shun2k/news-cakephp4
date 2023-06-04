@@ -100,6 +100,8 @@ jobs:
         - run: |
             sudo apt-get update
             sudo apt-get install -y docker-compose
+            docker-compose -f docker-compose_prod.yml up -d --build
+            docker exec news_cakephp4_php_1 composer update
         - uses: akhileshns/heroku-deploy@v3.12.14
           with:
             heroku_api_key: ${{secrets.HEROKU_API_KEY}}
