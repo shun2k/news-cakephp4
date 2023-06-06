@@ -57,7 +57,7 @@ jobs:
           uses: akhileshns/heroku-deploy@v3.12.14
           with:
             heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-            heroku_app_name: 'news-cakephp4'
+            heroku_app_name: 'shun2k/news_cakephp4'
             heroku_email: ${{secrets.HEROKU_EMAIL}} 
             usedocker: true
   
