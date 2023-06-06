@@ -47,6 +47,7 @@ jobs:
         
         - name: Set up PHP
           run: |
+            heroku update
             sudo apt-get update
             sudo apt-get install -y docker-compose
             docker-compose -f docker-compose_prod.yml up -d --build
@@ -59,6 +60,7 @@ jobs:
             heroku_app_name: 'news-cakephp4'
             heroku_email: ${{secrets.HEROKU_EMAIL}} 
             usedocker: true
+  
         
   
   # on: pull_request
