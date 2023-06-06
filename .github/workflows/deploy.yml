@@ -10,31 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     env:
       WEB_PORT: ${{ secrets.WEB_PORT }}
-      DB_NAME: ${{ secrets.DB_NAME }}
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_PASS=: ${{ secrets.DB_PASS }}
-      DB_PORT: ${{ secrets.DB_PORT }}
-      
-      PMA_USER: ${{ secrets.PMA_USER }}
-      PMA_PASS: ${{ secrets.PMA_PASS }}
-      PMA_PORT: ${{ secrets.PMA_PORT }}
-
-      DB_TEST_NAME: ${{ secrets.DB_TEST_NAME }}
-      DB_TEST_USER: ${{ secrets.DB_TEST_USER }}
-      DB_TEST_PASS: ${{ secrets.DB_TEST_PASS }}
-      DB_TEST_PORT: ${{ secrets.DB_TEST_PORT }}
-
-      PMA_TEST_USER: ${{ secrets.PMA_TEST_USER }}
-      PMA_TEST_PASS: ${{ secrets.PMA_TEST_PASS }}
-      PMA_TEST_PORT: ${{ secrets.PMA_TEST_PORT }}
+      DB_NAME: ${{ secrets.JAWS_DATABASE }}
+      DB_USER: ${{ secrets.JAWS_USERNAME }}
+      DB_PASS=: ${{ secrets.JAWS_PASSWORD }}
+      DB_PORT: ${{ secrets.JAWS_PORT }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       APP_NAME: ${{ vars.APP_NAME }}
-      DEBUG: ${{ vars.DEBUG }}
+      DEBUG: false
       APP_ENCODING: ${{ vars.APP_ENCODING }}
       APP_DEFAULT_LOCALE: ${{ vars.APP_DEFAULT_LOCALE }}
       APP_DEFAULT_TIMEZONE: ${{ vars.APP_DEFAULT_TIMEZONE }}
       SECURITY_SALT: ${{ secrets.SECURITY_SALT }}
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       OPENWEATHER_ONEDAY_URL: ${{ vars.OPENWEATHER_ONEDAY_URL }}
       OPENWEATHER_FIVEDAYS_URL: ${{ vars.OPENWEATHER_FIVEDAYS_URL }}
