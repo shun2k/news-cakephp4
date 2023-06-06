@@ -3,7 +3,7 @@ name: deploy
 on:
   push:
     branches:
-      - ckyaml
+      - main
 
 jobs:
   build-and-deploy:
@@ -59,7 +59,6 @@ jobs:
             heroku_api_key: ${{secrets.HEROKU_API_KEY}}
             heroku_app_name: "news-cakephp4"
             heroku_email: ${{secrets.HEROKU_EMAIL}} 
-            appdir: news_cakephp4
         - run: |
             heroku update
             sudo apt-get update
